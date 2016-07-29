@@ -1,0 +1,15 @@
+Package: MLPA
+Type: Package
+Title: Multiplex Ligation-dependent Probe Amplification data analysis
+Version: 1.9.2
+Date: 2016-07-29
+Author: Sylvain Mareschal
+Maintainer: Sylvain Mareschal <maressyl@gmail.com>
+URL: http://bioinformatics.ovsa.fr/MLPA
+BugReports: https://github.com/maressyl/R.MLPA/issues
+Description: This package provides functions to import Applied Biosystems data files of Multiplex Ligation-dependent Probe Amplification analysis and process them.
+Depends: graphics, grDevices, stats, utils, R (>= 2.10)
+Imports: methods
+Suggests: tcltk, tools
+License: GPL (>= 3)
+
