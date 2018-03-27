@@ -39,7 +39,7 @@
 }
 
 \author{
-  J.R. Lobry
+  J.R. Lobry, 'bool' type implemented by Sylvain Mareschal
 }
 
 \seealso{

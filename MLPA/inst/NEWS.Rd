@@ -4,6 +4,7 @@
   \itemize{
     \item{Meta-data collection fixed and hardened in read.fsa().}
     \item{'meta.extra' argument added to read.fsa().}
+    \item{'bool' type implemented in read.abif().}
   }
 }
 \section{Changes in version 1.9.2 (2016-07-29)}{

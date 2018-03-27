@@ -137,6 +137,8 @@ read.abif <- function(filename, max.bytes.in.file = file.info(filename)$size,
       res$Data[[i]] <- list(hour = UInt8(data, n = 1), 
         minute = UInt8(data[-1], n = 1), second = UInt8(data[-(1:2)], n = 1),
         hsecond = UInt8(data[-(1:3)], n = 1))
+    # bool:
+    if(elementtype == 13) res$Data[[i]] <- as.logical(UInt8(data))
     # pString:
     if(elementtype == 18){
       n <- SInt8(rawdata[debinraw])
@@ -148,7 +150,7 @@ read.abif <- function(filename, max.bytes.in.file = file.info(filename)$size,
     # user:
     if(elementtype >= 1024) res$Data[[i]] <- data
     # legacy:
-    if(elementtype %in% c(12, 13)) 
+    if(elementtype %in% c(12)) 
       warning("unimplemented legacy type found in file")
     if(elementtype %in% c(6, 9, 14, 15, 16, 17, 20, 128, 256, 384))
       warning("unsupported legacy type found in file")
