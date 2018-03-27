@@ -1,5 +1,10 @@
 \name{MLPA-news}
 \title{MLPA package NEWS}
+\section{Changes in version 1.9.3 (2018-03-27)}{
+  \itemize{
+    \item{Meta-data collection fixed in read.fsa().}
+  }
+}
 \section{Changes in version 1.9.2 (2016-07-29)}{
   \itemize{
     \item{Published on Github.}

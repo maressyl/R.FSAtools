@@ -83,11 +83,14 @@ read.fsa <- function(
 	meta <- list()
 	
 	# Metadata (various)
-	if("User.1" %in% names(fsa$Data))               meta$user <- fsa$Data$User.1
-	if("MCHN.1" %in% names(fsa$Data))               meta$machine <- fsa$Data$User.1
-	if(all(c("RMdN", "RMdV") %in% names(fsa$Data))) meta$runModule <- fsa$Data$User.1
-	if(all(c("RPrN", "RPrV") %in% names(fsa$Data))) meta$runProtocol <- fsa$Data$User.1
-	if("RMdX.1" %in% names(fsa$Data))               meta$injectionTime = sub("^.+<Token>DC_Injection_Time</Token><Value>(.+?)</Value>.+$", "\\1", fsa$Data$RMdX.1)
+	if("User.1" %in% names(ab1$Data))               meta$user <- ab1$Data$User.1
+	if("MCHN.1" %in% names(ab1$Data))               meta$machine <- ab1$Data$MCHN.1
+	if(all(c("RMdN", "RMdV") %in% names(ab1$Data))) meta$runModule <- paste(ab1$Data$RMdN, ab1$Data$RMdV, sep=" ")
+	if(all(c("RPrN", "RPrV") %in% names(ab1$Data))) meta$runProtocol <- paste(ab1$Data$RPrN, ab1$Data$RPrV, sep=" ")
+	
+	# Metadata (injection time)
+	regex <- "^.+<Token>DC_Injection_Time</Token><Value>(.+?)</Value>.+$"
+	if("RMdX.1" %in% names(ab1$Data) && grepl(regex, ab1$Data$RMdX.1)) meta$injectionTime <- sub(regex, "\\1", ab1$Data$RMdX.1)
 	
 	# Metadata (date)
 	if(all(c("RUND.1", "RUNT.1") %in% names(fsa$Data)) && is.list(fsa$Data$RUND.1) && is.list(fsa$Data$RUNT.1)) {
