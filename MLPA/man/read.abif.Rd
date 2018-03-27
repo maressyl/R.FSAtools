@@ -34,8 +34,8 @@
   Charif, D. and Lobry, J.R. (2007) \cite{Structural approaches to sequence evolution: Molecules, networks, populations} ISBN 978-3-540-35305-8, pp 207-232.
   
   Anonymous (2006) Applied Biosystem Genetic Analysis Data File Format.
-  Available at \url{http://www.appliedbiosystems.com/support/software_community/ABIF_File_Format.pdf}.
-  Last visited on 03-NOV-2008.
+  Available at \url{http://www6.appliedbiosystems.com/support/software_community/ABIF_File_Format.pdf}.
+  Last visited on 2018-03-27.
 }
 
 \author{

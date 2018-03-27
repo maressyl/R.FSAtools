@@ -4,6 +4,7 @@ read.fsa <- function(
 		file,
 		applyLowess = TRUE,
 		processed = FALSE,
+		meta.extra = NULL,
 		...
 	) {
 	# Parse ABIF
@@ -88,13 +89,14 @@ read.fsa <- function(
 		runProtocole.name = "RPrN",
 		runProtocole.version = "RPrV",
 		runDate = "RUND",
-		runTime = "RUNT"
+		runTime = "RUNT",
+		meta.extra
 	)
 	
 	# Start collection
 	meta <- list()
 	for(metaName in names(collect)) {
-		values <- ab1$Data[ grep(sprintf("^%s\\.[0-9]+$", collect[ metaName ]), names(ab1$Data)) ]
+		values <- fsa$Data[ grep(sprintf("^%s\\.[0-9]+$", collect[ metaName ]), names(fsa$Data)) ]
 		if(length(values) > 0L) {
 			if(all(sapply(values, is.atomic))) {
 				meta[[ metaName ]] <- unlist(values)
@@ -116,7 +118,7 @@ read.fsa <- function(
 	
 	# Injection time (not portable)
 	regex <- "^.+<Token>DC_Injection_Time</Token><Value>(.+?)</Value>.+$"
-	if("RMdX.1" %in% names(ab1$Data) && grepl(regex, ab1$Data$RMdX.1)) meta$injectionTime <- sub(regex, "\\1", ab1$Data$RMdX.1)
+	if("RMdX.1" %in% names(fsa$Data) && grepl(regex, fsa$Data$RMdX.1)) meta$injectionTime <- sub(regex, "\\1", fsa$Data$RMdX.1)
 	
 	# Store metadata
 	attr(x, "runMetaData") <- meta
