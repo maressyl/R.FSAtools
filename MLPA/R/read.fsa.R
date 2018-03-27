@@ -79,31 +79,44 @@ read.fsa <- function(
 	attr(x, "wavelengths") <- dyeWavelengths
 	attr(x, "colors") <- dyeColors
 	
-	# Collect metadata
+	# Metadata to collect
+	collect <- c(
+		user = "User",
+		machine = "MCHN",
+		runModule.name = "RMdN",
+		runModule.version = "RMdV",
+		runProtocole.name = "RPrN",
+		runProtocole.version = "RPrV",
+		runDate = "RUND",
+		runTime = "RUNT"
+	)
+	
+	# Start collection
 	meta <- list()
+	for(metaName in names(collect)) {
+		values <- ab1$Data[ grep(sprintf("^%s\\.[0-9]+$", collect[ metaName ]), names(ab1$Data)) ]
+		if(length(values) > 0L) {
+			if(all(sapply(values, is.atomic))) {
+				meta[[ metaName ]] <- unlist(values)
+				if(length(values) == 1L) names(meta[[ metaName ]]) <- NULL
+			} else {
+				meta[[ metaName ]] <- as.matrix(as.data.frame(lapply(values, unlist)))
+			}
+		}
+	}
 	
-	# Metadata (various)
-	if("User.1" %in% names(ab1$Data))               meta$user <- ab1$Data$User.1
-	if("MCHN.1" %in% names(ab1$Data))               meta$machine <- ab1$Data$MCHN.1
-	if(all(c("RMdN", "RMdV") %in% names(ab1$Data))) meta$runModule <- paste(ab1$Data$RMdN, ab1$Data$RMdV, sep=" ")
-	if(all(c("RPrN", "RPrV") %in% names(ab1$Data))) meta$runProtocol <- paste(ab1$Data$RPrN, ab1$Data$RPrV, sep=" ")
+	# Reshape dates
+	if("runDate" %in% names(meta) && "runTime" %in% names(meta)) {
+		dates <- sprintf("%04i-%02i-%02i %02i:%02i:%02i", meta$runDate["year",], meta$runDate["month",], meta$runDate["day",], meta$runTime["hour",], meta$runTime["minute",], meta$runTime["second",])
+		names(dates) <- c("runStart", "runStop", "collectionStart", "collectionStop")[ 1:length(dates) ]
+		meta$runDate <- NULL
+		meta$runTime <- NULL
+		meta <- c(meta, dates)
+	}
 	
-	# Metadata (injection time)
+	# Injection time (not portable)
 	regex <- "^.+<Token>DC_Injection_Time</Token><Value>(.+?)</Value>.+$"
 	if("RMdX.1" %in% names(ab1$Data) && grepl(regex, ab1$Data$RMdX.1)) meta$injectionTime <- sub(regex, "\\1", ab1$Data$RMdX.1)
-	
-	# Metadata (date)
-	if(all(c("RUND.1", "RUNT.1") %in% names(fsa$Data)) && is.list(fsa$Data$RUND.1) && is.list(fsa$Data$RUNT.1)) {
-		meta$startDate <- sprintf(
-			"%04i-%02i-%02i %02i:%02i:%02i",
-			fsa$Data$RUND.1$year,
-			fsa$Data$RUND.1$month,
-			fsa$Data$RUND.1$day,
-			fsa$Data$RUNT.1$hour,
-			fsa$Data$RUNT.1$minute,
-			fsa$Data$RUNT.1$second
-		)
-	}
 	
 	# Store metadata
 	attr(x, "runMetaData") <- meta
