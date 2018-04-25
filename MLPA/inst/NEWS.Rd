@@ -1,10 +1,11 @@
 \name{MLPA-news}
 \title{MLPA package NEWS}
-\section{Changes in version 1.9.3 (2018-03-27)}{
+\section{Changes in version 1.9.3 (2018-04-25)}{
   \itemize{
     \item{Meta-data collection fixed and hardened in read.fsa().}
     \item{'meta.extra' argument added to read.fsa().}
     \item{'bool' type implemented in read.abif().}
+    \item{Clearer error message in align.fsa() when R-squared is NA.}
   }
 }
 \section{Changes in version 1.9.2 (2016-07-29)}{
