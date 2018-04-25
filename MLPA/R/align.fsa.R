@@ -74,7 +74,7 @@ align.fsa <- function(
 	
 		# Check alignment
 		rSquared <- summary(model)$adj.r.squared
-		if(is.na(rSquared)) stop("Unable to compute R² (not enough points for a linear model ?)", call.=FALSE)
+		if(is.na(rSquared)) stop("Unable to compute R-squared (not enough points for a linear model ?)", call.=FALSE)
 		if(rSquared < rMin) warning(sprintf("Poor alignment model (rSquared = %.5f)", rSquared), call.=FALSE)
 	
 		# Store model
