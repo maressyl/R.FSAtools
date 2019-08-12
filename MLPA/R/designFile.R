@@ -1,6 +1,6 @@
 # Parses the design file
 # Author : Sylvain Mareschal <maressyl@gmail.com>
-designFile <- function(fileName) {
+designFile <- function(fileName, overwrite=list()) {
 	# Design sections
 	rawDesign <- readLines(fileName)
 	sectionStarts <- grep("^\\s*\\[([A-Za-z\\._]+)\\]\\s*$", rawDesign)
@@ -106,6 +106,15 @@ designFile <- function(fileName) {
 	
 	
 	### CHECKS
+	
+	# Overwrite some options from CLI
+	if(is.list(overwrite) && length(overwrite) > 0L) {
+		for(section in names(overwrite)) {
+			for(argument in names(overwrite[[section]])) {
+				conf[[section]][[argument]] <- overwrite[[section]][[argument]]
+			}
+		}
+	}
 	
 	# Version
 	softVersion <- as.character(packageVersion("MLPA"))

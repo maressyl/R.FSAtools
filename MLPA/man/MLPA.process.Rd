@@ -11,7 +11,8 @@
 }
 
 \usage{
-  MLPA.process(input, design, output, gene.cex = 1.3, file.line = 3, mar = c(5,4,5,1), progressBar = NULL)
+  MLPA.process(input, design, output, overwrite = list(), gene.cex = 1.3,
+    file.line = 3, mar = c(5,4,5,1), progressBar = NULL)
   MLPA.interface()
 }
 
@@ -24,6 +25,9 @@
 }
   \item{output}{
     Single character value, the path to a ".pdf" or ".log" file that will be created during the analysis.
+}
+  \item{overwrite}{
+    Named list, to be passed to \code{designFile()}.
 }
   \item{gene.cex}{
     Single numeric value, the character expanding factor for gene names.

@@ -1,5 +1,10 @@
 \name{MLPA-news}
 \title{MLPA package NEWS}
+\section{Changes in version 1.9.4 (2019-08-12)}{
+  \itemize{
+    \item{'overwrite' argument added to designFile() and MLPA.process().}
+  }
+}
 \section{Changes in version 1.9.3 (2018-04-25)}{
   \itemize{
     \item{Meta-data collection fixed and hardened in read.fsa().}
