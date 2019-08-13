@@ -1,8 +1,9 @@
 \name{MLPA-news}
 \title{MLPA package NEWS}
-\section{Changes in version 1.9.4 (2019-08-12)}{
+\section{Changes in version 1.9.4 (2019-08-13)}{
   \itemize{
     \item{'overwrite' argument added to designFile() and MLPA.process().}
+    \item{train() function added.}
   }
 }
 \section{Changes in version 1.9.3 (2018-04-25)}{

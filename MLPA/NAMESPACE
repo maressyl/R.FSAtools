@@ -10,7 +10,7 @@ importFrom("methods", "is")
 # Exports
 export("MLPA.interface", "MLPA.process", "designFile")
 export("read.abif", "read.fsa", "align.fsa", "peaks.fsa")
-export("model", "classify")
+export("model", "train", "classify")
 export("wav2RGB")
 S3method("plot", "fsa")
 S3method("print", "fsa")
