@@ -4,6 +4,7 @@
   \itemize{
     \item{'overwrite' argument added to designFile() and MLPA.process().}
     \item{train() function added.}
+    \item{MLPA.process() now uses plot.fsa(..., title=...).}
   }
 }
 \section{Changes in version 1.9.3 (2018-04-25)}{

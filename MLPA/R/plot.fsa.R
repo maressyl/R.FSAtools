@@ -152,6 +152,6 @@ plot.fsa <- function(
 	legend("topleft", inset=inset, legend=colnames(x[, channels, drop=FALSE]), col=chanColors[channels], lty="solid", bg="#FFFFFF")
 	
 	# Title
-	title(main=title)
+	title(main=title, adj=0)
 }
 
