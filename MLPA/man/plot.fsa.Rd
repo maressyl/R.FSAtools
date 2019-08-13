@@ -12,7 +12,7 @@
 \method{plot}{fsa}(x, units = NA, channels = NA, chanColors = NA, ladder = TRUE,
     offScaleCol = "#FF0000", offScalePch = "+", offScaleCex = 0.4, bg = "white",
     fg = "black", title = "", xlab = NA, ylab = "Intensity", xlim = NA, ylim = NA,
-    xaxt = "s", yaxt = "s", bty = "o", xaxp = NA, nticks = 5, ...)
+    xaxt = "s", yaxt = "s", bty = "o", xaxp = NA, nticks = 5, all.bp = TRUE, ...)
 }
 
 \arguments{
@@ -75,6 +75,9 @@
 }
   \item{nticks}{
     Single integer value. When \code{xaxp} is \code{NA} and \code{units} is "bp", this values fixes the interval between X axis labels.
+}
+  \item{all.bp}{
+    Single logical value, whether to force an unlabeled axis tick at each bp when \code{units} is "bp" or not.
 }
   \item{\dots}{
     Further arguments to be passed to \code{\link{plot}}.

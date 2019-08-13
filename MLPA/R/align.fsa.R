@@ -32,9 +32,10 @@ align.fsa <- function(
 
 		# Local maxima (above noise level)
 		allPeaks <- which(head(tail(y,-1),-1) >= tail(y,-2) & head(y,-2) < head(tail(y,-1),-1) & head(tail(y,-1),-1) > noiseLevel) + 1L
-
+		
 		# Exclude outliers comparing intensity with sure peaks ('surePeaks' last ones)
-		sureIntensity <- median(y[ tail(allPeaks, surePeaks) ])
+		surePeaks.i <- tail(allPeaks, surePeaks)
+		sureIntensity <- median(y[surePeaks.i])
 		if(outThreshold < 1) { threshold <- outThreshold * sureIntensity
 		} else               { threshold <- outThreshold
 		}
@@ -91,23 +92,49 @@ align.fsa <- function(
 		
 		# Plot profile
 		if(is.null(ylim)) ylim <- c(min(y, sureIntensity-threshold, na.rm=TRUE), max(y, sureIntensity+threshold, na.rm=TRUE))
-		plot(object, units=ifelse(is(status, "try-error"), "index", "bp"), ladder=!is(status, "try-error"), channels=channel, chanColors="#000000", ylim=ylim, ...)
+		plot(object, units=ifelse(is(status, "try-error"), "index", "bp"), ladder=!is(status, "try-error"), channels=channel, chanColors="#000000", ylim=ylim, nticks=10, all.bp=FALSE, ...)
+		
+		# Highlight 'sure peaks'
+		xcor <- attr(object, "ladderModel")[2] * surePeaks.i + attr(object, "ladderModel")[1]
+		points(x=xcor, y=y[surePeaks.i])
 		
 		# All detected peaks
 		xcor <- attr(object, "ladderModel")[2] * allPeaks + attr(object, "ladderModel")[1]
-		axis(side=3, at=xcor, labels=FALSE, lwd.ticks=3, col.ticks="#BB3333")
+		axis(side=3, at=xcor, labels=FALSE, lwd.ticks=5, col.ticks="#BB3333")
 		
 		# Intensity filter
 		xlim <- par()$usr[1:2]
-		segments(x0=xlim[1], x1=xlim[2], y0=sureIntensity, y1=sureIntensity, lty="dotted")
-		rect(xleft=xlim[1], xright=xlim[2], ybottom=sureIntensity-threshold, ytop=sureIntensity+threshold, col="#00000033", border=NA)
+		segments(x0=xlim[1], x1=xlim[2], y0=sureIntensity, y1=sureIntensity, col="#33BB33")
+		rect(xleft=xlim[1], xright=xlim[2], ybottom=sureIntensity-threshold, ytop=sureIntensity+threshold, col="#33BB3333", border=NA)
+		rect(xleft=xlim[1], xright=xlim[2], ybottom=par("usr")[3], ytop=noiseLevel, col="#BB333333", border=NA)
 		
 		# Peaks retained as size markers
 		xcor <- attr(object, "ladderModel")[2] * truePeaks + attr(object, "ladderModel")[1]
-		axis(side=3, at=xcor, labels=FALSE, lwd.ticks=3, col.ticks="#33BB33")
+		axis(side=3, at=xcor, labels=FALSE, lwd.ticks=5, col.ticks="#33BB33")
 		
-		# R squared
-		if(!is.null(rSquared)) text(x=par("usr")[2], y=par("usr")[4], labels=substitute(R^2==value, list(value=round(rSquared, 6))), adj=c(1.25, 1.5))
+		# Legend
+		legend(x="topright", bg="#FFFFFF",
+			pch =    c(1,         NA,        NA,          NA,          124,       124,       NA, NA,        NA),
+			col =    c("#000000", "#33BB33", NA,          NA,          "#BB3333", "#33BB33", NA, "#000000", NA),
+			lty =    c(NA,        "solid",   NA,          NA,          NA,        NA,        NA, "dotted",  NA),
+			fill =   c(NA,        NA,        "#33BB3333", "#BB333333", NA,        NA,        NA, NA,        NA),
+			border = c(NA,        NA,        "#000000",   "#000000",   NA,          NA,      NA, NA,        NA),
+			legend = c(
+				sprintf("'Sure' ladder peaks (%i last)", surePeaks),
+				"Ladder intensity (from 'sure' peaks)",
+				ifelse(
+					outThreshold < 1L,
+					sprintf("Tolerance (+/- %g%%)", signif(outThreshold*100L, 3)),
+					sprintf("Tolerance (+/- %g)", signif(outThreshold, 3))
+				),
+				sprintf("Noise (< %g)", signif(noiseLevel, 3)),
+				"Excluded as a ladder peak",
+				"Retained as a ladder peak",
+				sprintf("Matching to ladder sizes : %s", trim),
+				"Retained for alignment model",
+				sprintf("R-squared = %g (%s)", round(rSquared, 6), ifelse(rSquared > rMin, "OK", "MISALIGNED"))
+			)
+		)
 	}
 	
 	# Call postponed errors
