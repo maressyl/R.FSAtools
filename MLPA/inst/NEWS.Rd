@@ -1,5 +1,10 @@
 \name{MLPA-news}
 \title{MLPA package NEWS}
+\section{Changes in version 1.9.5 (2019-10-28)}{
+  \itemize{
+    \item{plot() method added for fsaModel objects, now used in classify().}
+  }
+}
 \section{Changes in version 1.9.4 (2019-08-13)}{
   \itemize{
     \item{'overwrite' argument added to designFile() and MLPA.process().}

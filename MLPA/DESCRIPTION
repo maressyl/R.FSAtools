@@ -1,8 +1,8 @@
 Package: MLPA
 Type: Package
 Title: Multiplex Ligation-dependent Probe Amplification data analysis
-Version: 1.9.4
-Date: 2019-08-13
+Version: 1.9.5
+Date: 2019-10-28
 Author: Sylvain Mareschal
 Maintainer: Sylvain Mareschal <maressyl@gmail.com>
 URL: http://bioinformatics.ovsa.fr/MLPA
