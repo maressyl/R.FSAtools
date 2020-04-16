@@ -1,5 +1,10 @@
 \name{MLPA-news}
 \title{MLPA package NEWS}
+\section{Changes in version 1.10.0 (2018-10-22)}{
+  \itemize{
+    \item{Fusion detection functions added.}
+  }
+}
 \section{Changes in version 1.9.3 (2018-04-25)}{
   \itemize{
     \item{Meta-data collection fixed and hardened in read.fsa().}
