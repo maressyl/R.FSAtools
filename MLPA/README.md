@@ -3,6 +3,8 @@ Multiplex Ligation-dependent Probe Amplification
 
 R package implementing the prediction software for GCB/ABC classification by RT-MLPA (Mareschal et al, JMD 2015)
 
+![Github version](https://bioinformatics.ovsa.fr/badge.php?package=MLPA)
+
 
 Availability
 ------------

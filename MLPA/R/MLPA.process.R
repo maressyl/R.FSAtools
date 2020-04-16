@@ -4,6 +4,7 @@ MLPA.process <- function(
 		input,
 		design,
 		output,
+		overwrite = list(),
 		gene.cex = 1.3,
 		file.line = 3,
 		mar = c(5,4,5,1),
@@ -23,7 +24,7 @@ MLPA.process <- function(
 	message("Design file : ", normalizePath(design), " [", tools::md5sum(design), "]", sep="")
 	
 	# Design file processing
-	design <- designFile(design)
+	design <- designFile(design, overwrite=overwrite)
 	
 	# MLPA.process arguments
 	process.args <- design$MLPA.process
@@ -82,6 +83,7 @@ MLPA.process <- function(
 		if(alignEnabled) {
 			align.fsa.args <- design$align.fsa
 			align.fsa.args$x <- x
+			align.fsa.args$title <- sprintf("%s (alignment)", basename(f))
 			align.fsa.args$disable <- NULL
 			x <- do.call("align.fsa", align.fsa.args)
 		}
@@ -96,6 +98,7 @@ MLPA.process <- function(
 			# Plot profile
 			plot.fsa.args <- design$plot.fsa
 			plot.fsa.args$x <- x
+			plot.fsa.args$title <- basename(f)
 			plot.fsa.args$disable <- NULL
 			do.call("plot.fsa", plot.fsa.args)
 			
@@ -105,11 +108,6 @@ MLPA.process <- function(
 				text(x=sapply(design$PEAKS$ranges, mean), y=par("usr")[4]+diff(par("usr")[3:4])/50, labels=names(design$PEAKS$ranges), srt=30, adj=c(0, 0), cex=gene.cex, font=2, xpd=NA, col=design$PEAKS$colors)
 				box()
 			}
-		}
-		
-		if(plotEnabled || rescueEnabled) {
-			# Plot file name
-			mtext(text=basename(f), side=3, at=par("usr")[1]-diff(par("usr")[1:2])/23, adj=0, line=file.line, font=2, cex=1.5)
 		}
 		
 		if(peaksAnnotated) {

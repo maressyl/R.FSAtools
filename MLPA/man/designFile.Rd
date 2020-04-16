@@ -9,12 +9,15 @@
 }
 
 \usage{
-  designFile(fileName)
+  designFile(fileName, overwrite = list())
 }
 
 \arguments{
   \item{fileName}{
     Single character value, the path and name of a design file to process.
+}
+  \item{overwrite}{
+    Two-level named list as returned by \code{designFile}, values from this list will replace parameters parsed from the design file.
 }
 }
 \details{

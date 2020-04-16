@@ -21,6 +21,7 @@ plot.fsa <- function(
 		bty = "o",
 		xaxp = NA,
 		nticks = 5L,
+		all.bp = TRUE,
 		...
 	) {
 	# Defaults
@@ -113,7 +114,7 @@ plot.fsa <- function(
 	}
 	
 	# Plot bp axis
-	if(units == "bp") axis(side=1, at=xlim[1]:xlim[2], labels=FALSE)
+	if(units == "bp" && isTRUE(all.bp)) axis(side=1, at=xlim[1]:xlim[2], labels=FALSE)
 	
 	# Off scale points
 	if(length(attr(x, "offScale")) > 0) {
@@ -152,6 +153,6 @@ plot.fsa <- function(
 	legend("topleft", inset=inset, legend=colnames(x[, channels, drop=FALSE]), col=chanColors[channels], lty="solid", bg="#FFFFFF")
 	
 	# Title
-	title(main=title)
+	title(main=title, adj=0)
 }
 
