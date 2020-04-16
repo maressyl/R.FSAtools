@@ -1,6 +1,6 @@
-# MLPA TCL-TK interface
+# MLPA Gene Expression Profiling TCL-TK interface
 # Author : Sylvain Mareschal <maressyl@gmail.com>
-MLPA.interface <- function() {
+GEP.interface <- function() {
 	
 	# Version name
 	verName <- paste("MLPA", as.character(packageVersion("MLPA")), sep=" ")
@@ -63,7 +63,7 @@ MLPA.interface <- function() {
 				cat("", file=logFile)
 				
 				# CLI call
-				MLPA.process(
+				GEP.process(
 					input = tcltk::tclvalue(inputValue),
 					design = tcltk::tclvalue(designValue),
 					output = tcltk::tclvalue(outputValue),

@@ -39,7 +39,7 @@ designFile <- function(fileName, overwrite=list()) {
 	}
 	
 	# Functions handled
-	for(fun in c("MLPA.process", "read.fsa", "align.fsa", "peaks.fsa", "plot.fsa", "model", "classify")) {
+	for(fun in c("GEP.process", "read.fsa", "align.fsa", "peaks.fsa", "plot.fsa", "model", "classify")) {
 		# Create missing section
 		if(! fun %in% names(conf)) conf[[fun]] <- list()
 		

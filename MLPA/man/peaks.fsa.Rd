@@ -52,7 +52,7 @@
 }
 
 \seealso{
-  \code{\link{MLPA.process}}
+  \code{\link{GEP.process}}
 }
 
 \examples{

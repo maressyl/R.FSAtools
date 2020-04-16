@@ -1,6 +1,6 @@
-# MLPA TCL-TK interface
+# MLPA Gene Expression Profiling TCL-TK worker
 # Author : Sylvain Mareschal <maressyl@gmail.com>
-MLPA.process <- function(
+GEP.process <- function(
 		input,
 		design,
 		output,
@@ -26,8 +26,8 @@ MLPA.process <- function(
 	# Design file processing
 	design <- designFile(design, overwrite=overwrite)
 	
-	# MLPA.process arguments
-	process.args <- design$MLPA.process
+	# GEP.process arguments
+	process.args <- design$GEP.process
 	for(varName in names(process.args)) {
 		assign(varName, process.args[[varName]])
 	}

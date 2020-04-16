@@ -1,5 +1,5 @@
-\name{TCTM.process}
-\alias{TCTM.process}
+\name{fusions.process}
+\alias{fusions.process}
 \title{
   LD-RTPCR fusion identification by Sanger
 }
@@ -7,7 +7,7 @@
   Automatically interpret gene fusions found by Sanger sequencing using the Ligation-Dependent PCR protocol. 
 }
 \usage{
-  TCTM.process(input, design, sheet = NA, output = ".", cores = NA, ...)
+  fusions.process(input, design, sheet = NA, output = ".", cores = NA, ...)
 }
 
 \arguments{
@@ -27,7 +27,7 @@
     Single integer value, the amount of CPUs to use on the local machine to parallelize the computation. If \code{NA}, a guess will be made. If 1, computation will not use the \code{parallel} package at all but only loop over samples.
 }
   \item{\dots}{
-    Further arguments are passed to \code{TCTM.process.one}.
+    Further arguments are passed to \code{fusions.process.core}.
 }
 }
 
@@ -46,6 +46,6 @@
 }
 
 \seealso{
-  \code{\link{MLPA.process}}
+  \code{\link{GEP.process}}
 }
 

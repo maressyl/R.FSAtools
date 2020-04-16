@@ -1,4 +1,4 @@
-TCTM.process.handle <- function(sampleName, ...) {
+fusions.process.handle <- function(sampleName, ...) {
 	out <- NULL
 	dialogs <- NULL
 	
@@ -17,7 +17,7 @@ TCTM.process.handle <- function(sampleName, ...) {
 	
 	# Process under monitoring
 	handle(
-		{ out <- TCTM.process.core(sampleName, ...) },
+		{ out <- fusions.process.core(sampleName, ...) },
 		messageHandler = function(m) {
 			dialogs <<- rbind(dialogs, newRow(m, "message", sampleName))
 		},

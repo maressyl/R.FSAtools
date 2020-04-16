@@ -1,4 +1,6 @@
-TCTM.process <- function(
+# MLPA gene fusion TCL-TK worker
+# Author : Sylvain Mareschal <maressyl@gmail.com>
+fusions.process <- function(
 		input,
 		design,
 		sheet = NA,
@@ -45,7 +47,7 @@ TCTM.process <- function(
 		out <- list()
 		for(sampleName in unique(samples$ID)) {
 			message("- ", sampleName)
-			out[[sampleName]] <- TCTM.process.core(
+			out[[sampleName]] <- fusions.process.core(
 				sampleName = sampleName,
 				samples = samples,
 				design = design,
@@ -59,7 +61,7 @@ TCTM.process <- function(
 		cluster <- parallel::makeCluster(spec=cores)
 		out <- parallel::clusterMap(
 			cl = cluster,
-			fun = TCTM.process.handle,
+			fun = fusions.process.handle,
 			sampleName = unique(samples$ID),
 			MoreArgs = list(
 				samples = samples,

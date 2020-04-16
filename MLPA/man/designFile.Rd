@@ -5,7 +5,7 @@
 }
 
 \description{
-  This function is a slave for \code{\link{MLPA.interface}}. It process a design file and returns its processed elements as a list.
+  This function is a slave for \code{\link{GEP.interface}}. It process a design file and returns its processed elements as a list.
 }
 
 \usage{
@@ -73,7 +73,7 @@
 }
 
 \seealso{
-  \code{\link{MLPA.interface}}
+  \code{\link{GEP.interface}}
 }
 
 \examples{

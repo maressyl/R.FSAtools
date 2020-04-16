@@ -1,4 +1,4 @@
-TCTM.process.core <- function(
+fusions.process.core <- function(
 		sampleName,
 		samples,
 		design,

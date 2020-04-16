@@ -1,19 +1,19 @@
-\name{MLPA.process}
-\alias{MLPA.process}
-\alias{MLPA.interface}
+\name{GEP.process}
+\alias{GEP.process}
+\alias{GEP.interface}
 \title{
   MLPA peak detection
 }
 \description{
-  \code{MLPA.process} handles the whole analysis from .fsa files, generating tables of expression values and graphical profiles.
+  \code{GEP.process} handles the whole analysis from .fsa files, generating tables of expression values and graphical profiles.
   
-  \code{MLPA.interface} summons a Tcl-Tk interface to call \code{MLPA.process} interactively.
+  \code{GEP.interface} summons a Tcl-Tk interface to call \code{GEP.process} interactively.
 }
 
 \usage{
-  MLPA.process(input, design, output, overwrite = list(), gene.cex = 1.3,
+  GEP.process(input, design, output, overwrite = list(), gene.cex = 1.3,
     file.line = 3, mar = c(5,4,5,1), progressBar = NULL)
-  MLPA.interface()
+  GEP.interface()
 }
 
 \arguments{
@@ -39,19 +39,19 @@
     Numeric vector with 4 values, the margin sizes on bottom, left, top and right sides respectively.
 }
   \item{progressBar}{
-    A \code{ttkprogressbar} to increment during the processing, or \code{NULL}. This argument is only provided to connect \code{MLPA.interface} and \code{MLPA.process}, thus it should be ignored.
+    A \code{ttkprogressbar} to increment during the processing, or \code{NULL}. This argument is only provided to connect \code{GEP.interface} and \code{GEP.process}, thus it should be ignored.
 }
 }
 
 \value{
-  Return nothing. \code{MLPA.process} raise errors, warnings and messages which are intercepted by \code{MLPA.interface} and redirected to the log file.
+  Return nothing. \code{GEP.process} raise errors, warnings and messages which are intercepted by \code{GEP.interface} and redirected to the log file.
   
   Various files are produced, in location set by the \code{output} argument :
   \describe{
     \item{~.expr.tsv}{Numeric matrix of normalized expressions (each sample is divided by its means).}
     \item{~.peaks.tsv}{Table collecting all the peaks called during the analysis, with their size, intensity, sample, annotation and off-scale status.}
     \item{~.pdf}{Profiles of the samples analysed. See \code{\link{designFile}} for customisation.}
-    \item{~.log}{Log file of errors, warnings and message (only \code{MLPA.interface} produces it).}
+    \item{~.log}{Log file of errors, warnings and message (only \code{GEP.interface} produces it).}
   }
 }
 
@@ -71,7 +71,7 @@
   dir(system.file("extdata", package="MLPA"))
   
   # Launch analysis in package directory
-  MLPA.process(
+  GEP.process(
     input = system.file("extdata/fsa", package="MLPA"),
     design = system.file("extdata/design.conf", package="MLPA"),
     output = output

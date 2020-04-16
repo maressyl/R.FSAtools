@@ -44,7 +44,7 @@
 }
 
 \seealso{
-  \code{\link{read.fsa}}, \code{\link{peaks.fsa}}, \code{\link{model}}, \code{\link{MLPA.process}}
+  \code{\link{read.fsa}}, \code{\link{peaks.fsa}}, \code{\link{model}}, \code{\link{GEP.process}}
 }
 
 \examples{
