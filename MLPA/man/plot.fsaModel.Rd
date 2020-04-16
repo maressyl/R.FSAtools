@@ -1,5 +1,5 @@
-\name{plot.fsa}
-\alias{plot.fsa}
+\name{plot.fsaModel}
+\alias{plot.fsaModel}
 \title{
   Plot method for "fsaModel" objects
 }
