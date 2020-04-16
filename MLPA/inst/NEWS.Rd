@@ -1,5 +1,8 @@
 \name{MLPA-news}
 \title{MLPA package NEWS}
+\section{Changes in version 1.10.0 (2020-04-16)}{
+  \itemize{
+    \item{Fusion detection functions added.}
 \section{Changes in version 1.9.5 (2019-10-28)}{
   \itemize{
     \item{plot() method added for fsaModel objects, now used in classify().}

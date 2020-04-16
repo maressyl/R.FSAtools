@@ -39,7 +39,7 @@
 }
 
 \seealso{
-  \code{\link{read.abif}}, \code{\link{MLPA.process}}, \code{\link{plot.fsa}}
+  \code{\link{read.abif}}, \code{\link{MLPA.process}}, \code{\link{plot.fsa}}, \code{\link{read.sanger}}
 }
 
 \examples{

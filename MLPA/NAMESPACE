@@ -7,10 +7,16 @@ import("utils")
 # Imports
 importFrom("methods", "is")
 
-# Exports
+# Exports (MLPA)
 export("MLPA.interface", "MLPA.process", "designFile")
 export("read.abif", "read.fsa", "align.fsa", "peaks.fsa")
 export("model", "train", "classify")
 export("wav2RGB")
 S3method("plot", "fsa")
 S3method("print", "fsa")
+
+# Exports (TCTM)
+export("TCTM.process")
+export("read.sanger")
+S3method("plot", "sanger")
+
