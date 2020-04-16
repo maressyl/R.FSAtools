@@ -39,3 +39,43 @@
   \code{\link{model}}, \code{\link{classify}}
 }
 
+\examples{
+  # Underlying truth for pseudo-data (10 genes)
+  geneNames <- paste("gene", LETTERS[1:10], sep=".")
+  geneMean <- abs(rnorm(10))
+  groupShift <- rnorm(10, sd=0.1)
+  
+  # Generate pseudo-data for 50 samples
+  mtx <- NULL
+  for(g in 1:10) {
+    x <- rnorm(n=50, mean=geneMean[g], sd=0.1)
+    x[1:25] <- x[1:25] + groupShift[g]
+    x[26:50] <- x[26:50] - groupShift[g]
+    mtx <- cbind(mtx, x)
+  }
+  colnames(mtx) <- geneNames
+  rownames(mtx) <- c(
+    paste("group1", 1:25, sep="."),
+    paste("group2", 26:50, sep=".")
+  )
+  
+  # Train model
+  group <- c(
+    rep("group1", 25),
+    rep("group2", 25)
+  )
+  model <- train(mtx, group)
+  plot(model)
+  
+  # Compare model to truth
+  i <- match(geneNames, model$geneNames)
+  out <- data.frame(
+    gene = geneNames,
+    true.M = geneMean,
+    model.M = model$geneMs[i],
+    true.shift = groupShift,
+    model.T = model$geneTs[i]
+  )
+  print(out)
+}
+
