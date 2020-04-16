@@ -36,10 +36,6 @@
 }
 
 \examples{
-  # Example FSA file provided
-  fsa <- read.fsa(system.file("extdata/fsa/A5918.fsa", package="MLPA"))
-  fsa <- align.fsa(fsa)
-  
   # Build model from design file
   design <- designFile(system.file("extdata/design.conf", package="MLPA"))
   design$model$disable <- NULL
@@ -48,3 +44,4 @@
   # Plot model
   plot(model)
 }
+

@@ -47,3 +47,4 @@
   fsa <- read.fsa(system.file("extdata/fsa/A5918.fsa", package="MLPA"))
   print(fsa)
 }
+

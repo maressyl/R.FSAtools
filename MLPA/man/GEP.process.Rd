@@ -64,8 +64,8 @@
 }
 
 \examples{
-  # Working in package directory
-  output <- sprintf("\%s/test.log", system.file("extdata", package="MLPA"))
+  # Working in temporary directory
+  output <- sprintf("\%s/test.log", tempdir())
   
   # See files before analysis
   dir(system.file("extdata", package="MLPA"))
@@ -77,6 +77,6 @@
     output = output
   )
   
-  # See resulting files
-  dir(system.file("extdata", package="MLPA"))
+  # List resulting files
+  dir(dirname(output), full.names=TRUE)
 }

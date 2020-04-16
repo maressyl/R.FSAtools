@@ -72,7 +72,7 @@
   fsa <- read.fsa(system.file("extdata/fsa/A5918.fsa", package="MLPA"))
   
   # Plot subset of the profile (time index)
-  plot(fsa, units="index", xlim=c(2000,3000))
+  plot(fsa, units="index", xlim=c(4000,5000))
   
   # Align using full ladder
   fullLadder <- c(
@@ -82,5 +82,5 @@
   fsa <- align.fsa(fsa, fullLadder=fullLadder)
   
   # Plot subset of the profile (base pairs)
-  plot(fsa, units="bp", xlim=c(80,125))
+  plot(fsa, units="bp", xlim=c(80,130))
 }

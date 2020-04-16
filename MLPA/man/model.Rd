@@ -57,5 +57,8 @@
   design <- designFile(system.file("extdata/design.conf", package="MLPA"))
   design$model$disable <- NULL
   model <- do.call("model", design$model)
+  
+  # Observe model
   print(model)
+  plot(model)
 }

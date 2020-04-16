@@ -32,5 +32,5 @@
 
 \examples{
   wv <- seq(from=300, to=800, by=10)
-  plot(x=wv, y=rep(1, length(wv)), col=wav2RGB(wv), pch=16)
+  plot(x=wv, y=rep(1, length(wv)), col=wav2RGB(wv), pch=19)
 }

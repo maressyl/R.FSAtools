@@ -62,6 +62,10 @@
   
   # Classify sample
   p <- classify(peaks, model, plot=TRUE)
-  print(p)  
+  print(p)
+  
+  # Observe sample in model
+  plot(model)
+  abline(v=p$score)
 }
 

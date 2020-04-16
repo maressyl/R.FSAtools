@@ -63,7 +63,8 @@
   # Single interval
   print(peaks.fsa(fsa, ranges=list(IRF4=c(86.2, 87.5))))
   
-  # Using design file
+  # Using a design file
   design <- designFile(system.file("extdata/design.conf", package="MLPA"))
   print(peaks.fsa(fsa, ranges=design$PEAKS$ranges))
 }
+

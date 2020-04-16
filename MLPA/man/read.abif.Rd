@@ -2,7 +2,7 @@
 \alias{read.abif}
 \title{Read ABIF formatted files}
 \description{
-  ABIF stands for Applied Biosystem Inc. Format, a binary fromat modeled after TIFF format.
+  ABIF stands for Applied Biosystem Inc. Format, a binary format modeled after TIFF format.
   Corresponding files usually have an \code{*.ab1} or \code{*.fsa} extension.
 }
 
@@ -50,3 +50,4 @@
   # Example FSA file provided
   rawFsa <- read.abif(system.file("extdata/fsa/A5918.fsa", package="MLPA"))
 }
+

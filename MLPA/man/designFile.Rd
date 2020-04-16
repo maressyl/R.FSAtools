@@ -85,3 +85,4 @@
   file <- system.file("extdata/rescue.conf", package="MLPA")
   design <- designFile(file)
 }
+

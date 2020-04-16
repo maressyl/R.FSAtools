@@ -100,9 +100,10 @@
   plot(fsa)
   
   # Plot subset of the profile (time index)
-  plot(fsa, units="index", xlim=c(2000,3000))
+  plot(fsa, units="index", xlim=c(4000,5000))
   
   # Plot subset of the profile (base pairs)
   fsa <- align.fsa(fsa)
-  plot(fsa, units="bp", xlim=c(80,125))
+  plot(fsa, units="bp", xlim=c(80,130))
 }
+
