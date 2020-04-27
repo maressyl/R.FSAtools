@@ -55,6 +55,10 @@
   }
 }
 
+\references{
+  Mareschal, Ruminy et al (2015) <doi:10.1016/j.jmoldx.2015.01.007> "Accurate Classification of Germinal Center B-Cell-Like/Activated B-Cell-Like Diffuse Large B-Cell Lymphoma Using a Simple and Rapid Reverse Transcriptase-Multiplex Ligation-Dependent Probe Amplification Assay: A CALYM Study"
+}
+
 \author{
   Sylvain Mareschal
 }

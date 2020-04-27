@@ -9,10 +9,11 @@
 }
 
 \usage{
-  align.fsa(x, channel = "ROX", fullLadder = c(50, 60, 90, 100, 120, 150, 160, 180, 190, 200, 220, 240, 260, 280, 290, 300, 320, 340, 360, 380, 400),
-    useLadder = c(50, 60, 90, 100, 120), outThreshold = 0.15, noiseLevel = 10, surePeaks = 5,
-    trim = c("forward", "backward", "none"), maskOffScale = FALSE, rMin = 0.999, rescue = FALSE,
-    ylim = NULL, ...)
+  align.fsa(x, channel = "ROX", fullLadder = c(50, 60, 90, 100, 120, 150, 160, 180, 190,
+    200, 220, 240, 260, 280, 290, 300, 320, 340, 360, 380, 400), useLadder = c(50, 60, 90,
+    100, 120), outThreshold = 0.15, noiseLevel = 10, surePeaks = 5,
+    trim = c("forward", "backward", "none"), maskOffScale = FALSE, rMin = 0.999,
+    rescue = FALSE, ylim = NULL, ...)
 }
 
 \arguments{

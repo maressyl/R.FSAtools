@@ -1,6 +1,6 @@
 \name{MLPA-news}
 \title{MLPA package NEWS}
-\section{Changes in version 1.10.0 (2020-04-16)}{
+\section{Changes in version 1.10.0 (2020-04-27)}{
   \itemize{
     \item{Fusion detection functions added.}
   }

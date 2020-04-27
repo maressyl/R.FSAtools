@@ -49,7 +49,7 @@
     \item{right.GRCh38}{Character, the genomic coordinates of the last base of the right primer (chromosome:position:strand).}
     \item{right.GRCh38_band}{Character, the cytogenetic location of the gene targeted by the right primer.}
     \item{seq_forward}{Character (uppercase), the complete sequence expected in forward sequencing (concatenation of \code{left.unileft}, \code{left.seq}, \code{right.seq}, \code{right.uniright} and the right tail, if any).}
-    \item{seq_reverse}{Character (uppercase), the complete sequence expected in reverse sequencing (reverse complement of a concatenation of the left tail, if any, \code{left.unileft}, \code{left.seq}, \code{right.seq}, \code{right.uniright}).}}
+    \item{seq_reverse}{Character (uppercase), the complete sequence expected in reverse sequencing (reverse complement of a concatenation of the left tail, if any, \code{left.unileft}, \code{left.seq}, \code{right.seq}, \code{right.uniright}).}
   }
   
   Please contact the authors to obtain a relevant design object.

@@ -7,10 +7,6 @@ tk.file <- function(title="Choose a file", typeNames="All files", typeExt="*", m
 	# Checks
 	type <- match.arg(type)
 	
-	# Ignore all warnings (fix for 'X11 BadDrawable')
-	on.exit(options(warn=getOption("warn")))
-	options(warn=-1)
-	
 	# Initial directory
 	if(is.null(initialdir)) initialdir <- getOption("tk.currentDirectory", default=getwd())
 	
