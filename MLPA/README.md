@@ -4,6 +4,10 @@ Multiplex Ligation-dependent Probe Amplification
 R package implementing the prediction software for GCB/ABC classification by RT-MLPA (Mareschal et al, JMD 2015)
 
 ![Github version](https://bioinformatics.ovsa.fr/badge.php?package=MLPA)
+![CRAN version](https://www.r-pkg.org/badges/version-ago/MLPA)
+![CRAN total downloads](https://cranlogs.r-pkg.org/badges/grand-total/MLPA)
+![CRAN monthly downloads](https://cranlogs.r-pkg.org/badges/MLPA)
+
 
 
 Availability
@@ -12,6 +16,11 @@ Availability
 A short presentation of the project can be found on my personnal website.
 
 * **WWW** : http://bioinformatics.ovsa.fr/MLPA
+
+Release sources and builds can be found in the CRAN repository :
+
+* **WWW** : https://CRAN.R-project.org/package=MLPA
+* **R** : `install.packages("MLPA")`
 
 Development sources are freely available on GitHub :
 
