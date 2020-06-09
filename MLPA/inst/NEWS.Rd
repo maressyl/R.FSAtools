@@ -1,5 +1,10 @@
 \name{MLPA-news}
 \title{MLPA package NEWS}
+\section{Changes in version 1.10.1 (2020-06-09)}{
+  \itemize{
+    \item{align.fsa(rescue=TRUE) is now more resilient to failures.}
+  }
+}
 \section{Changes in version 1.10.0 (2020-04-27)}{
   \itemize{
     \item{Fusion detection functions added.}

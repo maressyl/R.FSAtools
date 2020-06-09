@@ -23,7 +23,7 @@ align.fsa <- function(
 	if(!channel %in% colnames(x)) stop("channel \"", channel, "\" not found (available: ", paste(colnames(x), collapse=", "), ")")
 	
 	# Postpone errors
-	rSquared <- NULL
+	rSquared <- NA
 	status <- try(silent=TRUE, expr={
 		# Smoothed channel (offScale masked)
 		y <- x[, channel ]
@@ -95,11 +95,15 @@ align.fsa <- function(
 		plot(object, units=ifelse(is(status, "try-error"), "index", "bp"), ladder=!is(status, "try-error"), channels=channel, chanColors="#000000", ylim=ylim, nticks=10, all.bp=FALSE, ...)
 		
 		# Highlight 'sure peaks'
-		xcor <- attr(object, "ladderModel")[2] * surePeaks.i + attr(object, "ladderModel")[1]
+		if(is(status, "try-error")) { xcor <- surePeaks.i
+		} else                      { xcor <- attr(object, "ladderModel")[2] * surePeaks.i + attr(object, "ladderModel")[1]
+		}
 		points(x=xcor, y=y[surePeaks.i])
 		
 		# All detected peaks
-		xcor <- attr(object, "ladderModel")[2] * allPeaks + attr(object, "ladderModel")[1]
+		if(is(status, "try-error")) { xcor <- allPeaks
+		} else                      { xcor <- attr(object, "ladderModel")[2] * allPeaks + attr(object, "ladderModel")[1]
+		}
 		axis(side=3, at=xcor, labels=FALSE, lwd.ticks=5, col.ticks="#BB3333")
 		
 		# Intensity filter
@@ -109,7 +113,9 @@ align.fsa <- function(
 		rect(xleft=xlim[1], xright=xlim[2], ybottom=par("usr")[3], ytop=noiseLevel, col="#BB333333", border=NA)
 		
 		# Peaks retained as size markers
-		xcor <- attr(object, "ladderModel")[2] * truePeaks + attr(object, "ladderModel")[1]
+		if(is(status, "try-error")) { xcor <- truePeaks
+		} else                      { xcor <- attr(object, "ladderModel")[2] * truePeaks + attr(object, "ladderModel")[1]
+		}
 		axis(side=3, at=xcor, labels=FALSE, lwd.ticks=5, col.ticks="#33BB33")
 		
 		# Legend
