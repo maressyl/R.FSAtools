@@ -1,8 +1,8 @@
 Package: MLPA
 Type: Package
 Title: Multiplex Ligation-Dependent Probe Amplification Data Analysis
-Version: 1.10.1
-Date: 2020-06-09
+Version: 2.0.0
+Date: 2020-06-17
 Authors@R: c(
    person("Sylvain", "Mareschal", role=c("aut", "cre"), email="maressyl@gmail.com"),
    person("Philippe", "Ruminy", role=c("dtc", "ctb")),

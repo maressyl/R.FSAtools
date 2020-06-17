@@ -3,8 +3,8 @@
 designFile <- function(fileName, overwrite=list()) {
 	# Design sections
 	rawDesign <- readLines(fileName)
-	sectionStarts <- grep("^\\s*\\[([A-Za-z\\._]+)\\]\\s*$", rawDesign)
-	sectionNames <- sub("^\\s*\\[([A-Za-z\\._]+)\\]\\s*$", "\\1", rawDesign[sectionStarts])
+	sectionStarts <- grep("^\\s*\\[([A-Za-z\\._:]+)\\]\\s*$", rawDesign)
+	sectionNames <- sub("^\\s*\\[([A-Za-z\\._:]+)\\]\\s*$", "\\1", rawDesign[sectionStarts])
 	boundaries <- c(sectionStarts, length(rawDesign)+1L)
 	
 	# Returned list
@@ -16,6 +16,9 @@ designFile <- function(fileName, overwrite=list()) {
 	
 	sections <- setdiff(sectionNames, "PEAKS")
 	for(section in sections) {
+		# Preserve design file order
+		n <- length(conf) + 1L
+		
 		# Section boundaries
 		skip <- sectionStarts[ sectionNames == section ]
 		nrows <- boundaries[ boundaries > skip ][1] - skip - 1L
@@ -30,47 +33,46 @@ designFile <- function(fileName, overwrite=list()) {
 			content <- strsplit(content, split="\t")
 		
 			# Reformate as a named list, separating vectors
-			conf[[section]] <- lapply(content, "[", -1)
-			names(conf[[section]]) <- sapply(content, "[", 1)
+			conf[[n]] <- lapply(content, "[", -1)
+			names(conf[[n]]) <- sapply(content, "[", 1)
 			
 			# Guess types
-			for(i in 1:length(conf[[section]])) conf[[section]][[i]] <- type.convert(conf[[section]][[i]], as.is=TRUE)
+			for(i in 1:length(conf[[n]])) conf[[n]][[i]] <- type.convert(conf[[n]][[i]], as.is=TRUE)
+		} else {
+			# Allocate an empty list anyway
+			conf[[n]] <- list()
 		}
-	}
-	
-	# Functions handled
-	for(fun in c("GEP.process", "read.fsa", "align.fsa", "peaks.fsa", "plot.fsa", "model", "classify")) {
-		# Create missing section
-		if(! fun %in% names(conf)) conf[[fun]] <- list()
 		
-		# Function arguments
-		arguments <- formals(fun)
-		arguments$disable <- FALSE
+		# Modifiers
+		if(grepl("^(.+):(first|last)$", section)) {
+			modifier <- sub("^(.+):(first|last)$", "\\2", section)
+			section <- sub("^(.+):(first|last)$", "\\1", section)
+			attr(conf[[n]], "modifier") <- modifier
+		}
 		
-		# Defined in design file but not used by this function
-		notInFun <- setdiff(names(conf[[fun]]), names(arguments))
-		notInFun <- setdiff(notInFun, "disable")
-		if(length(notInFun) > 0) message("Design setting(s) ignored for function ", fun, " : ", paste(notInFun, collapse=", "))
+		# Section name
+		names(conf)[n] <- section
 		
-		# Used by function but not defined in design
-		notInDesign <- setdiff(names(arguments), names(conf[[fun]]))
-		setToDefault <- character(0)
-		for(a in notInDesign) {
-			# "disable" pseudo-argument
-			if(a == "disable") conf[[fun]][[ a ]] <- FALSE
+		if(section != "DESIGN") {
+			# Section name must be an existing function
+			if(!exists(section, mode="function")) stop("Design section \"", section, "\" refers to an unknown R function")
 			
-			# Do not eval missing arguments
-			if(!is.name(arguments[[a]]) || as.character(arguments[[a]]) != "") {
-				conf[[fun]][[ a ]] <- eval(arguments[[ a ]])
-				setToDefault <- c(setToDefault, a)
-			}
+			# Function arguments
+			arguments <- formals(section)
+			
+			# Defined in design file but not used by this function
+			notInFun <- setdiff(names(conf[[n]]), names(arguments))
+			if(length(notInFun) > 0L) message("Design setting(s) ignored for function ", section, " : ", paste(notInFun, collapse=", "))
+			
+			# Used by function but not defined in design
+			notInDesign <- setdiff(names(arguments), names(conf[[n]]))
+			if(length(notInDesign) > 0L) message("Design setting(s) set to default for function ", section, " : ", paste(notInDesign, collapse=", "))
 		}
-		if(length(setToDefault) > 0) message("Design setting set to default for function ", fun, " : ", paste(setToDefault, collapse=", "))
 	}
 	
 	
 	
-	### PEAKS
+	### PEAKS (FIXME)
 	
 	# Section boundaries
 	skip <- sectionStarts[ sectionNames == "PEAKS" ]

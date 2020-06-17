@@ -5,6 +5,7 @@ read.fsa <- function(
 		applyLowess = TRUE,
 		processed = FALSE,
 		meta.extra = NULL,
+		quiet = FALSE,
 		...
 	) {
 	# Parse ABIF
@@ -128,6 +129,9 @@ read.fsa <- function(
 	
 	# S3 class
 	class(x) <- "fsa"
+	
+	# Print meta data
+	if(!quiet) message("FSA metadata : ", paste(sprintf("%s=\"%s\"", names(meta), sapply(meta, "[", 1L)), collapse=", "))
 	
 	return(x)
 }
