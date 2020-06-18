@@ -4,7 +4,6 @@ generic.process <- function(
 		input,
 		design,
 		output,
-		overwrite = list(),
 		progressBar = NULL
 	) {
 	# Version
@@ -21,7 +20,7 @@ generic.process <- function(
 	message("Design file : ", normalizePath(design), " [", tools::md5sum(design), "]", sep="")
 	
 	# Design file processing
-	design <- designFile(design, overwrite=overwrite)
+	design <- designFile(design)
 	
 	# File list
 	toProcess <- dir(input, full.names=TRUE, recursive=TRUE, pattern="\\.fsa$")

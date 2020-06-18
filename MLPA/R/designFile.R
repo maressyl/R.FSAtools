@@ -1,6 +1,6 @@
 # Parses the design file
 # Author : Sylvain Mareschal <maressyl@gmail.com>
-designFile <- function(fileName, overwrite=list()) {
+designFile <- function(fileName) {
 	# Design sections
 	rawDesign <- readLines(fileName)
 	sectionStarts <- grep("^\\s*\\[([A-Za-z\\._:]+)\\]\\s*$", rawDesign)
@@ -86,15 +86,6 @@ designFile <- function(fileName, overwrite=list()) {
 			# Store
 			conf$GLOBALS[[section]] <- processed
 		} else stop("Unknown type")
-	}
-	
-	# Overwrite some options from CLI
-	if(is.list(overwrite) && length(overwrite) > 0L) {
-		for(section in names(overwrite)) {
-			for(argument in names(overwrite[[section]])) {
-				conf[[section]][[argument]] <- overwrite[[section]][[argument]]
-			}
-		}
 	}
 	
 	# Version
