@@ -7,8 +7,8 @@ import("utils")
 # Imports
 importFrom("methods", "is")
 
-# Exports (GEP)
-export("GEP.interface", "GEP.process", "generic.process", "designFile")
+# Exports (generic)
+export("generic.interface", "generic.process", "designFile")
 export("read.abif", "read.fsa", "align.fsa", "peaks.fsa", "genotype.fsa", "export.attr", "add.model", "multiplot")
 export("train", "classify")
 export("wav2RGB")

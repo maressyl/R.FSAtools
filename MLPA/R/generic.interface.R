@@ -1,6 +1,6 @@
 # MLPA Gene Expression Profiling TCL-TK interface
 # Author : Sylvain Mareschal <maressyl@gmail.com>
-GEP.interface <- function() {
+generic.interface <- function() {
 	
 	# Version name
 	verName <- paste("MLPA", as.character(packageVersion("MLPA")), sep=" ")
@@ -16,7 +16,7 @@ GEP.interface <- function() {
 		)
 		
 		# Guess output
-		if(tcltk::tclvalue(outputValue) == "") tcltk::tclvalue(outputValue) <- sprintf("%s.pdf", tcltk::tclvalue(inputValue))
+		if(tcltk::tclvalue(outputValue) == "") tcltk::tclvalue(outputValue) <- basename(tcltk::tclvalue(inputValue))
 		
 		# Guess design
 		if(tcltk::tclvalue(designValue) == "") {
@@ -58,12 +58,12 @@ GEP.interface <- function() {
 		handle(
 			expr = {
 				# Log file
-				logFile <- sub("\\.[^\\.]+$", ".log", tcltk::tclvalue(outputValue))
+				logFile <- sprintf("%s.log", tcltk::tclvalue(outputValue))
 				warnCount <- 0L
 				cat("", file=logFile)
 				
 				# CLI call
-				GEP.process(
+				generic.process(
 					input = tcltk::tclvalue(inputValue),
 					design = tcltk::tclvalue(designValue),
 					output = tcltk::tclvalue(outputValue),

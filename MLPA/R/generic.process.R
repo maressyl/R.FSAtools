@@ -44,7 +44,7 @@ generic.process <- function(
 	
 	for(file in toProcess) {
 		
-		message("\nProcessing ", file)
+		message("Processing ", file)
 		globals$FILE_PATH <- file
 		globals$FILE_NAME <- basename(file)
 		
