@@ -9,15 +9,12 @@
 }
 
 \usage{
-  classify(peaks, model, plot = TRUE)
+  classify(x, plot = TRUE)
 }
 
 \arguments{
-  \item{peaks}{
-    A \code{data.frame}, as returned by \code{\link{peaks.fsa}}.
-}
-  \item{model}{
-    A \code{fsaModel} object, as returned by \code{\link{model}}.
+  \item{x}{
+    A \code{fsa} object with \code{peaks} and \code{model} attributes.
 }
   \item{plot}{
     Single logical value, whether to plot a visual representation of the prediction or not.
@@ -44,28 +41,23 @@
 }
 
 \seealso{
-  \code{\link{read.fsa}}, \code{\link{peaks.fsa}}, \code{\link{model}}, \code{\link{GEP.process}}
+  \code{\link{read.fsa}}, \code{\link{peaks.fsa}}, \code{\link{add.model}}, \code{\link{generic.process}}
 }
 
 \examples{
   # Example FSA file provided
-  fsa <- read.fsa(system.file("extdata/fsa/A5918.fsa", package="MLPA"))
+  fsa <- read.fsa(system.file("extdata/fsa_GEP/A5918.fsa", package="MLPA"))
   fsa <- align.fsa(fsa)
   
-  # Build model from design file
-  design <- designFile(system.file("extdata/design.conf", package="MLPA"))
-  design$model$disable <- NULL
-  model <- do.call("model", design$model)
+  # Add model from design file
+  design <- designFile(system.file("extdata/design_GEP.conf", package="MLPA"))
+  fsa <- add.model(fsa, model=design$GLOBALS$MODEL)
   
-  # Get peak heights
-  peaks <- peaks.fsa(fsa, ranges=design$PEAKS$ranges)
+  # Add peak heights
+  fsa <- peaks.fsa(fsa, peaks=design$GLOBALS$PEAKS)
   
   # Classify sample
-  p <- classify(peaks, model, plot=TRUE)
-  print(p)
-  
-  # Observe sample in model
-  plot(model)
-  abline(v=p$score)
+  fsa <- classify(fsa, plot=TRUE)
+  print(attr(fsa, "classification"))
 }
 

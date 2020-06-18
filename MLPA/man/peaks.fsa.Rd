@@ -8,16 +8,31 @@
 }
 
 \usage{
-  peaks.fsa(x, ranges, logTransform = FALSE, lowThreshold = 1000, channels = "6-FAM",
-    noiseRange = c(-10, 0), primerRange = c(35, 45))
+  peaks.fsa(x, peaks, names, size.min, size.max, channels, colors,
+    logTransform = FALSE, lowThreshold = 1000, noiseRange = c(-10, 0))
 }
 
 \arguments{
   \item{x}{
     An aligned object of class \code{fsa}, as returned by \code{\link{align.fsa}}.
 }
-  \item{ranges}{
-    A named list of ranges, numeric vectors of length two (minimal and maximal values). They defines the sizes (in base pairs) for which a maximum is required.
+  \item{peaks}{
+    A \code{data.frame} with one row for each peak to consider. Can be provided instead of individual \code{names} (corresponding to \code{peaks} row names instead of a column), \code{size.min}, \code{size.max}, \code{channels} and \code{colors} argument vectors.
+}
+  \item{names}{
+    Character vector, the names to give to the peaks (duplicated values should be avoided). If \code{peaks} is provided, this vector will be used instead.
+}
+  \item{size.min}{
+    Numeric vector, the minimal size (in base pairs) to look for the corresponding peak. If \code{peaks} is provided, this vector will be used instead.
+}
+  \item{size.max}{
+    Numeric vector, the maximal size (in base pairs) to look for the corresponding peak. If \code{peaks} is provided, this vector will be used instead.
+}
+  \item{channels}{
+    Character vector, the name of the channel in \code{x} in which to look for the corresponding peak. If \code{peaks} is provided, this vector will be used instead.
+}
+  \item{colors}{
+    Vector defining the color to use in future plots to highlight the corresponding peak. If \code{peaks} is provided, this vector will be used instead.
 }
   \item{logTransform}{
     Single logical value, whether to apply log transformation (base 2) to normalized values (previously floored to 0 and summed with 1) or not.
@@ -25,26 +40,23 @@
   \item{lowThreshold}{
     Single numeric value, threshold for which "low profile" warnings are called if all peaks are lower.
 }
-  \item{channels}{
-    Single character value, the name of the \code{x} channel to browse.
-}
   \item{noiseRange}{
     Numeric vector of length 2, defining the range (relative to the starting range of the first peak defined in \code{ranges}) in which measure the noise (in bp). If the noise peak is 20 percent greater than the first peak, a warning is raised as the accuracy of the measure may be compromised.
-}
-  \item{primerRange}{
-    Numeric vector of length 2, defining the range in which measure primer signals (in bp). This is implemented for QC experimentation and may not be useful in current practice.
 }
 }
 
 \value{
-  Returns a \code{data.frame} with a row for each range :
-  \item{gene}{The name of the range described, extracted from \code{ranges}.}
-  \item{size.min}{Minimal size of the range described.}
-  \item{size.max}{Maximal size of the range described.}
-  \item{peak.size}{Size at which the maximum was found, in base pairs.}
-  \item{peak.height}{Maximum found, in fluorescence units.}
-  \item{peak.offScale}{Is there any off-scale value in the range ?}
+  Returns \code{x}, with a new or updated \code{peaks} attribute, a \code{data.frame} with a row for each range :
+  \item{size.min}{User-provided argument.}
+  \item{size.max}{User-provided argument.}
+  \item{channels}{User-provided argument.}
+  \item{colors}{User-provided argument.}
+  \item{size}{Size at which the maximum was found, in base pairs.}
+  \item{height}{Maximum found, in fluorescence units.}
+  \item{offScale}{Is there any off-scale value in the range ?}
   \item{normalized}{Current peak's height divided by the mean of all peak heights.}
+  
+  A \code{normalized} vector attribute is also set, corresponding to the \code{normalized} column only.
 }
 
 \author{
@@ -52,19 +64,28 @@
 }
 
 \seealso{
-  \code{\link{GEP.process}}
+  \code{\link{generic.process}}
 }
 
 \examples{
   # Example FSA file provided
-  fsa <- read.fsa(system.file("extdata/fsa/A5918.fsa", package="MLPA"))
+  fsa <- read.fsa(system.file("extdata/fsa_GEP/A5918.fsa", package="MLPA"))
   fsa <- align.fsa(fsa)
   
-  # Single interval
-  print(peaks.fsa(fsa, ranges=list(IRF4=c(86.2, 87.5))))
+  # Single custom interval
+  fsa <- peaks.fsa(
+    fsa,
+    names = "IRF4",
+    size.min = 86.2,
+    size.max = 87.5,
+    channels = "6-FAM",
+    colors = "blue"
+  )
+  print(attr(fsa, "peaks"))
   
   # Using a design file
-  design <- designFile(system.file("extdata/design.conf", package="MLPA"))
-  print(peaks.fsa(fsa, ranges=design$PEAKS$ranges))
+  design <- designFile(system.file("extdata/design_GEP.conf", package="MLPA"))
+  fsa <- peaks.fsa(fsa, peaks=design$GLOBALS$PEAKS)
+  print(attr(fsa, "peaks"))
 }
 

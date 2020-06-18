@@ -9,7 +9,8 @@
 }
 
 \usage{
-  read.fsa(file, applyLowess = TRUE, processed = FALSE, meta.extra = NULL, ...)
+  read.fsa(file, applyLowess = TRUE, processed = FALSE, meta.extra = NULL,
+    quiet = FALSE, ...)
 }
 
 \arguments{
@@ -25,6 +26,9 @@
   \item{meta.extra}{
     Named character vector, defining which extra fields to extract to populate the \code{runMetaData} attribute. The vector names define the human-readable names to use in output, the vector values provide the 4 uppercase letter code to extract (all values will be gathered in a vector if the code is used several times). See the reference provided in \code{\link{read.abif}} for existing codes in the ABIF file format.
 }
+  \item{quiet}{
+    Single logical value, whether to print FSA meta-data read from the file or not.
+}
   \item{\dots}{
     Further arguments to be passed to \code{\link{read.abif}}.
 }
@@ -39,12 +43,12 @@
 }
 
 \seealso{
-  \code{\link{read.abif}}, \code{\link{GEP.process}}, \code{\link{plot.fsa}}, \code{\link{read.sanger}}
+  \code{\link{read.abif}}, \code{\link{generic.process}}, \code{\link{plot.fsa}}, \code{\link{read.sanger}}
 }
 
 \examples{
   # Example FSA file provided
-  fsa <- read.fsa(system.file("extdata/fsa/A5918.fsa", package="MLPA"))
+  fsa <- read.fsa(system.file("extdata/fsa_GEP/A5918.fsa", package="MLPA"))
   print(fsa)
 }
 

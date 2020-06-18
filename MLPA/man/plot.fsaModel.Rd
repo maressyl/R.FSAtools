@@ -36,12 +36,14 @@
 }
 
 \examples{
-  # Build model from design file
-  design <- designFile(system.file("extdata/design.conf", package="MLPA"))
-  design$model$disable <- NULL
-  model <- do.call("model", design$model)
+  # Example FSA file provided
+  fsa <- read.fsa(system.file("extdata/fsa_GEP/A5918.fsa", package="MLPA"))
+  
+  # Add model from design file
+  design <- designFile(system.file("extdata/design_GEP.conf", package="MLPA"))
+  fsa <- add.model(fsa, model=design$GLOBALS$MODEL)
   
   # Plot model
-  plot(model)
+  plot(attr(fsa, "model"))
 }
 

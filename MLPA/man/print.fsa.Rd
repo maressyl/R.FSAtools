@@ -31,7 +31,7 @@
 
 \examples{
   # Example FSA file provided
-  fsa <- read.fsa(system.file("extdata/fsa/A5918.fsa", package="MLPA"))
+  fsa <- read.fsa(system.file("extdata/fsa_GEP/A5918.fsa", package="MLPA"))
   print(fsa)
   
   # Aligned version

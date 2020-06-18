@@ -70,7 +70,7 @@
 
 \examples{
   # Example FSA file provided
-  fsa <- read.fsa(system.file("extdata/fsa/A5918.fsa", package="MLPA"))
+  fsa <- read.fsa(system.file("extdata/fsa_GEP/A5918.fsa", package="MLPA"))
   
   # Plot subset of the profile (time index)
   plot(fsa, units="index", xlim=c(4000,5000))

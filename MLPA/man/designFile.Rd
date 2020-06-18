@@ -5,27 +5,41 @@
 }
 
 \description{
-  This function is a slave for \code{\link{GEP.interface}}. It process a design file and returns its processed elements as a list.
+  This function is a slave for \code{\link{generic.process}}. It process a design file and returns its processed elements as a list.
 }
 
 \usage{
-  designFile(fileName, overwrite = list())
+  designFile(fileName)
 }
 
 \arguments{
   \item{fileName}{
     Single character value, the path and name of a design file to process.
 }
-  \item{overwrite}{
-    Two-level named list as returned by \code{designFile}, values from this list will replace parameters parsed from the design file.
-}
 }
 \details{
-  Design files are tab-separated files, with a header line and dots as decimal separators. It can be quoted, with double or simple quotes. "#" are considered as comment markup.
+  Design files are text file split in multiple sections. Each section starts with a "[NAME]" line and ends when the next section begins. Lines starting with a \code{#} sign are ignored, as well as blank lines.
   
-  Design files are plain text files, separated in multiple sections. Sections begin with a "[NAME]" line and end when the next section begin. Comments (line beggining with the "#" character) and blank lines can be added everywhere, except into the PEAKS table. Quotes should be avoided, and multiple values for a single parameter (vectors) can be obtained by concatenating multiple values separated by commas (no spacing).
+  Standard sections refer to an existing R function (the section name is expected to match the function name in a case-sensitive manner), each line in the section setting an argument to call this function : the first value is the argument name, then after a tabulation come one or many values separated by tabulations. Multiple values will be aggregated into a vector, and \code{type.convert} will try to guess the correct type.
   
-  The "[DESIGN]" section contain name/value pairs, separated by tabulations :
+  One modifier can be added in the section name after the function name, separated by \code{:} (e.g. \code{pdf:first}). Modifiers have the following effects :
+  \describe{
+	\item{first}{The function will be called only once, while processing the first .fsa file.}
+	\item{last}{The function will be called only once, while processing the last .fsa file.}
+  }
+  
+  \code{$NAME} and \code{@NAME} can be used while setting an argument to refer to global variable \code{NAME}. Use \code{$} reference for character variables, which will be replaced with \code{gsub} and can thus be combined (e.g. \code{$NAME.txt}). Use \code{@} reference to obtain the raw R variable, regardless of its type. Default globals are :
+  \describe{
+	\item{FILE_PATH}{The full name and path of the .fsa file currently considered in the loop.}
+	\item{FILE_NAME}{The base name (without path) of the .fsa file currently considered in the loop.}
+	\item{OBJECT}{The last object of class 'fsa' returned by any function called in the pipeline.}
+	\item{OUTPUT_PATH}{The full name and path defined by \code{output} while calling \code{\link{generic.process}}.}
+	\item{OUTPUT_NAME}{The base name (without path) defined by \code{output} while calling \code{\link{generic.process}}.}
+  }
+  
+  Sections with full uppercase names (only letters and \code{_} are allowed) will define a new global variable with matching name. The global will be a named list, each line in the section defining a vector (the first value being the name for the vector in the list). The \code{table} modifier can be used while defining globals (e.g. \code{PEAKS:table}), to request instead the section to be parsed as a TSV file (one row in the section is one row in the table, columns are separated by tabulations, see \code{\link{read.table}}). The first row will be used as column names and the first column as row names.
+  
+  A DESIGN global (\code{[DESIGN]} section) is strongly recommended to keep design file self-explained, the following elements are suggested :
   \describe{
     \item{author}{The name of the design author (for human readers only).}
     \item{purpose}{The description of the design (for human readers only).}
@@ -33,39 +47,13 @@
     \item{updated}{Date of the last design update (YYYY-MM-DD).}
   }
   
-  The "[PEAKS]" section contain a tab-separated table, with a header line and dots as decimal separators. It should contain one row for each peak that is to be measured in the assay.
-  \describe{
-    \item{name}{Character, the name of the gene described (mist be unique in the table).}
-    \item{channel}{Character, the name of the channel in which a measure has to be done.}
-    \item{size.min}{Numeric, the start of the range in which a measure has to be done. For size markers, the range is defined in time index units, for genes in base pairs (after an \code{\link{align.fsa}} call).}
-    \item{size.max}{Numeric, the end of the range in which a measure has to be done. For size markers, the range is defined in time index units, for genes in base pairs (after an \code{\link{align.fsa}} call).}
-    \item{color}{Character, the color tu use for the range on the plot. This can be an english color name, or an hexadecimal color specification as "#000000". Notice transparency will be added.}
-  }
-  
-  Function-specific sections may also be present, to define R function arguments. Currently \code{\link{read.fsa}}, \code{\link{align.fsa}}, \code{\link{plot.fsa}}, \code{\link{model}} and \code{\link{classify}} functions are handled. Section names are supposed to respect function name case, surrounded by square brackets. These sections should contain name/value pairs, separated by tabulations, using only valid function arguments as names (please refer to the corresponding help page). Arguments not defined in the design file will be set to the function's default (raising a warning), and arguments not used by the function will be ignored (raising a warning too). An additionnal \code{disable} argument is handled (single logical value), to disable the call to the corresponding function.
+  Please refer to the two provided working examples to help building your own designs. Full processing with the examples are described in \code{\link{generic.process}} \code{examples} section, direct access to the example design files is shown below.
 }
 
 \value{
-  Returns a multi-level \code{list}, with a direct children per section.
+  Returns a multi-level \code{list}, with a direct children per function to call and an extra \code{GLOBALS} element.
   
-  "DESIGN" directly transcribes as a named and typed \code{list} the elements described above.
-  
-  "PEAKS" contains a list with the following elements :
-  \item{ranges}{The concatenated \code{size.min} and \code{size.max} columns, for genes.}
-  \item{channels}{The \code{channel} column, for genes.}
-  \item{weights}{The \code{weigh} column, for genes.}
-  \item{colors}{The plain color from \code{color} column, for genes.}
-  \item{backgrounds}{The transparent version of the \code{color} column, for genes.}
-  
-  Function-specific sections directly transcribe arguments as a named and typed \code{list}.
-}
-
-\note{
-  It is highly recommended to new users to build their design modifying "extdata/design.conf", updating the "[model]" and "[PEAKS]" sections.
-  
-  Replacing the content of the "[model]" and "[classify]" sections by "disable TRUE" is also a good way to start with designs, as the classification model is optionnal and can be added later once the technique is developped.
-  
-  The "extdata/recue.conf" design can prove particularly useful when processing fails with a non-obvious message (generally because the alignment failed). Processing files with this design disables almost everything and provides a raw profile that can help disgnose the problem.
+  Children are named according to the function to call, thus multiple children can have the same name.
 }
 
 \author{
@@ -73,16 +61,16 @@
 }
 
 \seealso{
-  \code{\link{GEP.interface}}
+  \code{\link{generic.process}}, \code{\link{generic.interface}}
 }
 
 \examples{
   # Example file provided
-  file <- system.file("extdata/design.conf", package="MLPA")
+  file <- system.file("extdata/design_GEP.conf", package="MLPA")
   design <- designFile(file)
   
   # Alignment rescue design provided
-  file <- system.file("extdata/rescue.conf", package="MLPA")
+  file <- system.file("extdata/design_SNP.conf", package="MLPA")
   design <- designFile(file)
 }
 

@@ -11,8 +11,10 @@
 \usage{
 \method{plot}{fsa}(x, units = NA, channels = NA, chanColors = NA, ladder = TRUE,
     offScaleCol = "#FF0000", offScalePch = "+", offScaleCex = 0.4, bg = "white",
-    fg = "black", title = "", xlab = NA, ylab = "Intensity", xlim = NA, ylim = NA,
-    xaxt = "s", yaxt = "s", bty = "o", xaxp = NA, nticks = 5, all.bp = TRUE, ...)
+    fg = "black", title = "", title.adj = 0, title.line = NA, xlab = NA,
+    ylab = "Intensity", xlim = NA, ylim = NA, xaxt = "s", yaxt = "s", bty = "o",
+    xaxp = NA, nticks = 5, all.bp = TRUE, peaks.alpha = 48L, peaks.srt = 30,
+    peaks.adj = c(0, 0), peaks.cex = 1.3, peaks.font = 2, ...)
 }
 
 \arguments{
@@ -49,6 +51,12 @@
   \item{title}{
     Single character value, the main title to print on the plot.
 }
+  \item{title.adj}{
+    To be passed as \code{adj} to \code{\link{title}}.
+}
+  \item{title.line}{
+    To be passed as \code{line} to \code{\link{title}}.
+}
   \item{xlab}{
     See \code{\link{plot}} for further details. If \code{NA}, \code{units} is used.
 }
@@ -79,6 +87,21 @@
   \item{all.bp}{
     Single logical value, whether to force an unlabeled axis tick at each bp when \code{units} is "bp" or not.
 }
+  \item{peaks.alpha}{
+    Single integer value, the alpha channel to add to peak colors to make a background (255 is no transparency at all, 0 is invisible).
+}
+  \item{peaks.srt}{
+    To be passed as \code{srt} to \code{\link{text}} while printing peak names.
+}
+  \item{peaks.adj}{
+    To be passed as \code{adj} to \code{\link{text}} while printing peak names.
+}
+  \item{peaks.cex}{
+    To be passed as \code{cex} to \code{\link{text}} while printing peak names.
+}
+  \item{peaks.font}{
+    To be passed as \code{font} to \code{\link{text}} while printing peak names.
+}
   \item{\dots}{
     Further arguments to be passed to \code{\link{plot}}.
 }
@@ -94,7 +117,7 @@
 
 \examples{
   # Example FSA file provided
-  fsa <- read.fsa(system.file("extdata/fsa/A5918.fsa", package="MLPA"))
+  fsa <- read.fsa(system.file("extdata/fsa_GEP/A5918.fsa", package="MLPA"))
   
   # Plot whole profile
   plot(fsa)

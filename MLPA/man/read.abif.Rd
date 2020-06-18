@@ -48,6 +48,6 @@
 
 \examples{
   # Example FSA file provided
-  rawFsa <- read.abif(system.file("extdata/fsa/A5918.fsa", package="MLPA"))
+  rawFsa <- read.abif(system.file("extdata/fsa_GEP/A5918.fsa", package="MLPA"))
 }
 

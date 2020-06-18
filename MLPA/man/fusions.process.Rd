@@ -70,6 +70,6 @@
 }
 
 \seealso{
-  \code{\link{GEP.process}}
+  \code{\link{generic.process}}
 }
 

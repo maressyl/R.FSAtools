@@ -9,7 +9,8 @@
 }
 
 \usage{
-  train(peakMatrix, group, filter.p = 0.05, ...)
+  train(peakMatrix, group, filter.p = 0.05, groupColors = c("red", "blue"),
+    threshold = 0.9)
 }
 
 \arguments{
@@ -22,8 +23,11 @@
   \item{filter.p}{
     Single numeric value, if not \code{NA} only genes for which the t-test p is lower than this will be used in the model.
 }
-  \item{\dots}{
-    Further arguments to be passed to \code{\link{model}}.
+  \item{groupColors}{
+    Vector of length two, defining the colors to use to represent the two groups in future plots.
+}
+  \item{threshold}{
+    Single numeric value, the likelihood threshold above which make a call when classifying (classification will return \code{NA} is this threshold is met for none of the two groups).
 }
 }
 
@@ -36,7 +40,7 @@
 }
 
 \seealso{
-  \code{\link{model}}, \code{\link{classify}}
+  \code{\link{add.model}}, \code{\link{classify}}
 }
 
 \examples{
