@@ -32,8 +32,8 @@ peaks.fsa <- function(
 		if(!missing(names))    rownames(peaks) <- names
 		if(!missing(size.min)) peaks$size.min <- size.min
 		if(!missing(size.max)) peaks$size.max <- size.max
-		if(!missing(channels)) peaks$channels <- channel
-		if(!missing(colors))   peaks$colors   <- color
+		if(!missing(channels)) peaks$channels <- channels
+		if(!missing(colors))   peaks$colors   <- colors
 		
 		# Check
 		if(!setequal(colnames(peaks), c("size.min", "size.max", "channel", "color"))) stop("'peaks' must have 'size.min', 'size.max', 'channel' and 'color' columns")
