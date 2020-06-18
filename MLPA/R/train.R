@@ -4,7 +4,8 @@ train <- function(
 		peakMatrix,
 		group,
 		filter.p = 0.05,
-		...
+		groupColors = c("red", "blue"),
+		threshold = 0.9
 		)
 	{
 	# Coercions
@@ -50,15 +51,17 @@ train <- function(
 	groupNames <- levels(group)
 	
 	# Gather as a model object
-	out <- model(
+	out <- list(
 		groupMeans = groupMeans,
 		groupSDs = groupSDs,
 		groupNames = groupNames,
+		groupColors = groupColors,
+		threshold = threshold,
 		geneNames = geneNames,
 		geneTs = geneTs,
-		geneMs = geneMs,
-		...
+		geneMs = geneMs
 	)
+	class(out) <- "fsaModel"
 	
 	return(out)
 }
