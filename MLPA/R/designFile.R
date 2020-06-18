@@ -10,17 +10,17 @@ designFile <- function(fileName, overwrite=list()) {
 	# Returned list
 	conf <- list(GLOBALS=NULL)
 	
-	for(sectionName in sectionNames) {
+	for(s in 1:length(sectionNames)) {
 		# Preserve design file order
 		n <- length(conf) + 1L
 		
 		# Modifiers
-		if(grepl("^(.+):(first|last|table)$", sectionName)) {
-			modifier <- sub("^(.+):(first|last|table)$", "\\2", sectionName)
-			section <- sub("^(.+):(first|last|table)$", "\\1", sectionName)
+		if(grepl("^(.+):(first|last|table)$", sectionNames[s])) {
+			modifier <- sub("^(.+):(first|last|table)$", "\\2", sectionNames[s])
+			section <- sub("^(.+):(first|last|table)$", "\\1", sectionNames[s])
 		} else {
 			modifier <- NULL
-			section <- sectionName
+			section <- sectionNames[s]
 		}
 		
 		# Type
@@ -37,7 +37,7 @@ designFile <- function(fileName, overwrite=list()) {
 		}
 		
 		# Section boundaries
-		skip <- sectionStarts[ sectionNames == sectionName ]
+		skip <- sectionStarts[s]
 		nrows <- boundaries[ boundaries > skip ][1] - skip - 1L
 		
 		# Extract from whole design
