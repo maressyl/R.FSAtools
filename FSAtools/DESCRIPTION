@@ -1,17 +1,17 @@
-Package: MLPA
+Package: FSAtools
 Type: Package
-Title: Multiplex Ligation-Dependent Probe Amplification Data Analysis
+Title: Fragment Analysis and Capillary Sequencing Tool Kit
 Version: 2.0.0
-Date: 2020-06-17
+Date: 2020-06-18
 Authors@R: c(
-   person("Sylvain", "Mareschal", role=c("aut", "cre"), email="maressyl@gmail.com"),
+   person("Sylvain", "Mareschal", role=c("aut", "cre"), email="mareschal@ovsa.fr"),
    person("Philippe", "Ruminy", role=c("dtc", "ctb")),
    person(c("Jean","R."), "Lobry", role="ctb"),
    person("Fabrice", "Jardin", role="ths")
    )
-URL: http://bioinformatics.ovsa.fr/MLPA
-BugReports: https://github.com/maressyl/R.MLPA/issues
-Description: Functions to import Applied Biosystems data files of multiplex ligation-dependent probe amplification (MLPA) analysis and process them. Gene-expression profiling methods are described in Mareschal, Ruminy et al (2015) <doi:10.1016/j.jmoldx.2015.01.007>. Gene-fusion detection methods are described in Mareschal, Palau et al (under review).
+URL: http://bioinformatics.ovsa.fr/FSAtools
+BugReports: https://github.com/maressyl/R.FSAtools/issues
+Description: Functions to import Applied Biosystems data files and process them in a highly flexible and interfaced framework. RT-MLPA application (gene-expression profiling and classification) is described in Mareschal, Ruminy et al (2015) <doi:10.1016/j.jmoldx.2015.01.007>. Gene-fusion detection is described in Mareschal, Palau et al (under review). Examples are provided for genotyping applications as well.
 Depends: graphics, grDevices, stats, utils, R (>= 2.10)
 Imports: methods
 Suggests: Biostrings, parallel, tcltk, tools
