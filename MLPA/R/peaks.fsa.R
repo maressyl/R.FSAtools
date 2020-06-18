@@ -85,6 +85,8 @@ peaks.fsa <- function(
 	
 	# Store in object
 	attr(x, "peaks") <- peaks
+	attr(x, "normalized") <- peaks$normalized
+	names(attr(x, "normalized")) <- rownames(peaks)
 	
 	return(x)
 }

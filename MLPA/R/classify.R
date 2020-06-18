@@ -1,22 +1,25 @@
 # Apply a LPS-like bayesian predictor to peaks produced by peaks.fsa()
 # Author : Sylvain Mareschal <maressyl@gmail.com>
 classify <- function(
-		peaks,
-		model,
+		x,
 		plot = TRUE
 		)
 	{
-	# Class checks
-	if(!is(model, "fsaModel"))   stop("'model' must be a 'fsaModel' object")
-	if(!is(peaks, "data.frame")) stop("'peaks' must be a data.frame")
+	# Class check
+	if(!is(x, "fsa")) stop("'x' must be a 'fsa' object")
+	
+	# Get and checkattributes
+	peaks <- attr(x, "peaks")
+	model <- attr(x, "model")
+	if(is.null(peaks)) stop("'x' has no 'peaks' attribute, use peaks.fsa() first")
+	if(is.null(model)) stop("'x' has no 'model' attribute, use addModel() first")
 	
 	# Check model genes
-	missingGenes <- setdiff(model$geneNames, peaks$gene)
-	if(length(missingGenes) > 0)    stop("Genes required by the model not measured : ", paste(missingGenes, collapse=", "))
-	if(any(duplicated(peaks$gene))) stop("Duplicated gene names in peak table")
+	missingGenes <- setdiff(model$geneNames, rownames(peaks))
+	if(length(missingGenes) > 0)         stop("Genes required by the model not measured : ", paste(missingGenes, collapse=", "))
+	if(any(duplicated(rownames(peaks)))) stop("Duplicated gene names in peak table")
 	
 	# Cross data
-	rownames(peaks) <- peaks$gene
 	peaks <- peaks[ model$geneNames ,]
 	peaks$T <- model$geneTs
 	peaks$M <- model$geneMs
@@ -57,12 +60,18 @@ classify <- function(
 		mtext(side=3, line=1.25, adj=1, at=par("usr")[2], font=2, cex=1.5, col=ifelse(p[highest] >= model$threshold, model$groupColors[highest], "darkgrey"), text=sprintf("p(%s) = %g", model$groupNames[highest], signif(p[highest], 3)))
 	}
 	
-	return(
-		list(
-			score = score,
-			p = p,
-			class = class
-		)
+	# Store results in object
+	tab <- data.frame(
+		row.names = "LPS",
+		score = score,
+		p.1 = p[1],
+		p.2 = p[2],
+		class = class,
+		stringsAsFactors = FALSE
 	)
+	colnames(tab)[2:3] <- sprintf("p.%s", model$groupNames)
+	attr(x, "classification") <- tab
+	
+	return(x)
 }
 
