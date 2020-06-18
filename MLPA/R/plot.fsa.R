@@ -12,6 +12,8 @@ plot.fsa <- function(
 		bg = "white",
 		fg = "black",
 		title = "",
+		title.adj = 0,
+		title.line = NA,
 		xlab = NA,
 		ylab = "Intensity",
 		xlim = NA,
@@ -22,6 +24,11 @@ plot.fsa <- function(
 		xaxp = NA,
 		nticks = 5L,
 		all.bp = TRUE,
+		peaks.alpha = 48L,
+		peaks.srt = 30,
+		peaks.adj = c(0, 0),
+		peaks.cex = 1.3,
+		peaks.font = 2,
 		...
 	) {
 	# Defaults
@@ -148,11 +155,59 @@ plot.fsa <- function(
 		} else warning("Can't add ladder without alignment ('ladderExact' attribute)")
 	}
 	
+	# Peaks
+	peaks <- attr(x, "peaks")
+	if(!is.null(peaks)) {
+		# Ignore invisible peaks
+		peaks <- peaks[ !is.na(peaks$color) ,]
+		
+		# Transparent version of peak colors
+		peaks$background <- sprintf(
+			"#%s",
+			apply(
+				as.character(
+					as.hexmode(
+						rbind(
+							col2rgb(peaks$color),
+							peaks.alpha
+						)
+					)
+				),
+				2,
+				paste,
+				collapse = ""
+			)
+		)
+		
+		# Rectangles
+		rect(
+			xleft = peaks$size.min,
+			xright = peaks$size.max,
+			ybottom = -1e6,
+			ytop = 1e6,
+			col = peaks$background,
+			border = NA
+		)
+		
+		# Names
+		text(
+			x = (peaks$size.min + peaks$size.max) / 2,
+			y = par("usr")[4] + diff(par("usr")[3:4]) / 50,
+			labels = rownames(peaks),
+			srt = peaks.srt,
+			adj = peaks.adj,
+			cex = peaks.cex,
+			font = peaks.font,
+			xpd = NA,
+			col = peaks$color
+		)
+	}
+	
 	# Legend
 	inset <- c(par("din")[2]/1000, par("din")[1]/1000)
 	legend("topleft", inset=inset, legend=colnames(x[, channels, drop=FALSE]), col=chanColors[channels], lty="solid", bg="#FFFFFF")
 	
 	# Title
-	title(main=title, adj=0)
+	title(main=title, adj=title.adj, line=title.line)
 }
 

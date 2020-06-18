@@ -31,16 +31,15 @@ generic.process <- function(
 	}
 	
 	# Initialize globals
-	globals <- list(
-		FILE_PATH = NULL,
-		FILE_NAME = NULL,
-		OBJECT = NULL,
-		RANGES = design$PEAKS$ranges,
-		CHANNELS = design$PEAKS$channels,
-		COLORS = design$PEAKS$colors,
-		BACKGROUNDS = design$PEAKS$backgrounds,
-		OUTPUT_PATH = output,
-		OUTPUT_NAME = basename(output)
+	globals <- c(
+		design$GLOBALS,
+		list(
+			FILE_PATH = NULL,
+			FILE_NAME = NULL,
+			OBJECT = NULL,
+			OUTPUT_PATH = output,
+			OUTPUT_NAME = basename(output)
+		)
 	)
 	
 	for(file in toProcess) {
@@ -51,7 +50,7 @@ generic.process <- function(
 		
 		# Call functions listed in design order
 		for(i in 1:length(design)) {
-			if(!names(design)[i] %in% c("DESIGN", "PEAKS")) {
+			if(names(design)[i] != "GLOBALS") {
 				# Loop modifiers
 				modifier <- attr(design[[i]], "modifier")
 				if(identical(modifier, "first") && file != head(toProcess, 1)) next
