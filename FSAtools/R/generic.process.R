@@ -33,9 +33,11 @@ generic.process <- function(
 		design$GLOBALS,
 		list(
 			FILE_PATH = NULL,
+			FILE_DIR = NULL,
 			FILE_NAME = NULL,
 			OBJECT = NULL,
 			OUTPUT_PATH = output,
+			OUTPUT_DIR = dirname(output),
 			OUTPUT_NAME = basename(output)
 		)
 	)
@@ -44,6 +46,7 @@ generic.process <- function(
 		
 		message("Processing ", file)
 		globals$FILE_PATH <- file
+		globals$FILE_DIR <- dirname(file)
 		globals$FILE_NAME <- basename(file)
 		
 		# Call functions listed in design order

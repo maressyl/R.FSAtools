@@ -31,9 +31,11 @@
   \code{$NAME} and \code{@NAME} can be used while setting an argument to refer to global variable \code{NAME}. Use \code{$} reference for character variables, which will be replaced with \code{gsub} and can thus be combined (e.g. \code{$NAME.txt}). Use \code{@} reference to obtain the raw R variable, regardless of its type. Default globals are :
   \describe{
 	\item{FILE_PATH}{The full name and path of the .fsa file currently considered in the loop.}
+	\item{FILE_DIR}{The parent directory of the .fsa file currently considered in the loop.}
 	\item{FILE_NAME}{The base name (without path) of the .fsa file currently considered in the loop.}
 	\item{OBJECT}{The last object of class 'fsa' returned by any function called in the pipeline.}
 	\item{OUTPUT_PATH}{The full name and path defined by \code{output} while calling \code{\link{generic.process}}.}
+	\item{OUTPUT_DIR}{The parent directory of \code{output} while calling \code{\link{generic.process}}.}
 	\item{OUTPUT_NAME}{The base name (without path) defined by \code{output} while calling \code{\link{generic.process}}.}
   }
   
