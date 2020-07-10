@@ -11,7 +11,7 @@
 }
 
 \usage{
-  export.attr(x, attr, file, sample, sep = "\t", dec = ".", quote = TRUE)
+  export.attr(x, attr, file, meta = character(0), sep = "\t", dec = ".", quote = TRUE)
 }
 
 \arguments{
@@ -24,8 +24,8 @@
   \item{file}{
     Single character value, the path and name to the file to create or update.
 }
-  \item{sample}{
-    Single character value, the sample name to add for disambiguation when appending to a file.
+  \item{meta}{
+    Character vector, the names of \code{x} meta-data fields to export as extra columns.
 }
   \item{sep}{
     To be passed to \code{\link{write.table}}.
@@ -39,9 +39,7 @@
 }
 
 \details{
-  If the attribute is a \code{data.frame}, it will be appended below the content of the file with an extra 'sample' column, row names will be added only if the file was empty.
-  
-  If the attribute is \code{atomic}, it will be appended as a new row to the existing matrix, using 'sample' as row name.
+  New data will be appended below the content of the file with extra 'meta' columns, row names will be added only if the file was empty.
 }
 
 \author{
