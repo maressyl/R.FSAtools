@@ -1,11 +1,12 @@
 \name{FSAtools-news}
 \title{FSAtools package NEWS}
-\section{Changes in version 2.0.0 (2020-06-18)}{
+\section{Changes in version 2.0.0 (2020-07-10)}{
   \itemize{
     \item{MLPA becomes FSAtools, as it is now generic enough for other applications. GEP.process() and GEP.interface() are replaced by generic.process() and generic.interface(), with an enhanced (not retrocompatible) design file specification (see designFile() help page).}
     \item{New design, example files and genotype.fsa() added to illustrate the genotyping application.}
     \item{peaks.fsa() and classify() now updates a fsa object as align.fsa() does rather than returning R variables.}
     \item{Multiple function addition and replacement to better fit the new pipeline paradigm.}
+	\item{Sample name and well attributes now extracted by read.fsa().}
   }
 }
 \section{Changes in version 1.10.1 (2020-06-09)}{

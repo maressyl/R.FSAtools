@@ -84,6 +84,8 @@ read.fsa <- function(
 	collect <- c(
 		user = "User",
 		machine = "MCHN",
+		sample.name = "SpNm",
+		sample.well = "TUBE",
 		runModule.name = "RMdN",
 		runModule.version = "RMdV",
 		runProtocole.name = "RPrN",
