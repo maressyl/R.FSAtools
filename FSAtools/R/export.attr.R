@@ -3,7 +3,7 @@ export.attr <- function(
 		x,
 		attr,
 		file,
-		sample,
+		meta = character(0),
 		sep = "\t",
 		dec = ".",
 		quote = TRUE
@@ -16,22 +16,28 @@ export.attr <- function(
 	val <- attr(x, attr)
 	if(is.null(val)) stop("'x' has no \"", attr, "\" attribute to export")
 	
+	# Transform vectors into 1-row data.frame
+	row.names <- TRUE
+	if(is.atomic(val)) {
+		if(is.null(names(val))) names(val) <- sprintf("X%i", 1:length(val))
+		val <- as.data.frame(as.list(val))
+		row.names <- FALSE
+	}
+	
 	if(is.data.frame(val)) {
-		# Append with an extra 'sample' column
-		val$sample <- sample
-		write.table(val, file=file, sep=sep, dec=dec, quote=quote, append=TRUE, row.names=TRUE, col.names=ifelse(file.exists(file), FALSE, NA))
-	} else if(is.atomic(val)) {
-		# Get current matrix
-		if(file.exists(file)) { mtx <- as.matrix(read.table(file, sep="\t", header=TRUE, row.names=1, stringsAsFactors=FALSE))
-		} else                { mtx <- NULL
+		# Append metadata columns
+		for(m in meta) {
+			v <- attr(x, "metaData")[[m]]
+			if(length(v) == 0L) { val[[m]] <- NA
+			} else              { val[[m]] <- paste(v, collapse=", ")
+			}
 		}
 		
-		# Append a new column
-		mtx <- rbind(mtx, val)
-		rownames(mtx)[ nrow(mtx) ] <- sample
-		
-		# Export
-		write.table(mtx, file=file, sep=sep, dec=dec, quote=quote, row.names=TRUE, col.names=NA)
+		# Append with an extra 'sample' column
+		if(file.exists(file)) { col.names <- FALSE
+		} else if(row.names)  { col.names <- NA
+		} else                { col.names <- TRUE
+		}		
+		write.table(val, file=file, sep=sep, dec=dec, quote=quote, append=TRUE, row.names=row.names, col.names=col.names)
 	} else stop("Attribute to export must be a data.frame or atomic vector")
 }
-

@@ -84,20 +84,21 @@ read.fsa <- function(
 	collect <- c(
 		sample = "SpNm",
 		well = "TUBE",
-		name = "RunN",
 		user = "User",
 		machine = "MCHN",
+		run.name = "RunN",
+		run.date = "RUND",
+		run.time = "RUNT",
 		runModule.name = "RMdN",
 		runModule.version = "RMdV",
 		runProtocole.name = "RPrN",
 		runProtocole.version = "RPrV",
-		runDate = "RUND",
-		runTime = "RUNT",
 		meta.extra
 	)
 	
 	# Start collection
 	meta <- list()
+	meta$file <- normalizePath(file)
 	for(metaName in names(collect)) {
 		values <- fsa$Data[ grep(sprintf("^%s\\.[0-9]+$", collect[ metaName ]), names(fsa$Data)) ]
 		if(length(values) > 0L) {
