@@ -15,6 +15,7 @@ genotype.fsa <- function(
 	# Loci
 	peaks$locus <- sub("_(.+)$", "", rownames(peaks))
 	peaks$allele <- sub("^(.+)_", "", rownames(peaks))
+	peaks <- peaks[ order(peaks$locus, peaks$allele) ,]
 	
 	# Locus storage
 	loci <- data.frame(
