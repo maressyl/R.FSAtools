@@ -7,6 +7,7 @@ align.fsa <- function(
 		outThreshold = 0.15,
 		noiseLevel = 10,
 		surePeaks = 5,
+		leakingRatios = c(-1, 10),
 		trim = c("forward", "backward", "none"),
 		maskOffScale = FALSE,
 		rMin = 0.999,
@@ -38,7 +39,14 @@ align.fsa <- function(
 		if(outThreshold < 1) { threshold <- outThreshold * sureIntensity
 		} else               { threshold <- outThreshold
 		}
+		outlierPeaks <- allPeaks[ abs(y[allPeaks] - sureIntensity) >= threshold ]
 		truePeaks <- allPeaks[ abs(y[allPeaks] - sureIntensity) < threshold ]
+		
+		# Exclude peaks with obvious leakage of one channel into others
+		leaking.comp <- apply(x[ truePeaks , -grep(channel, colnames(x)) ] < leakingRatios[1] * x[truePeaks,channel], 1, any)
+		leaking.high <- apply(x[ truePeaks , -grep(channel, colnames(x)) ] > leakingRatios[2] * x[truePeaks,channel], 1, any)
+		leakingPeaks <- truePeaks[ leaking.comp & leaking.high ]
+		truePeaks <- truePeaks[ !leaking.comp | !leaking.high ]
 		
 		if(length(truePeaks) > length(fullLadder)) {
 			# Too many peaks retained (artefacts)
@@ -99,11 +107,15 @@ align.fsa <- function(
 		}
 		points(x=xcor, y=y[surePeaks.i])
 		
-		# All detected peaks
+		# All detected peaks and their status
 		if(is(status, "try-error")) { xcor <- allPeaks
 		} else                      { xcor <- attr(object, "ladderModel")[2] * allPeaks + attr(object, "ladderModel")[1]
 		}
-		axis(side=3, at=xcor, labels=FALSE, lwd.ticks=5, col.ticks="#BB3333")
+		col <- rep("#888888", length(allPeaks))
+		col[ allPeaks %in% outlierPeaks ] <- "#BB3333"
+		col[ allPeaks %in% leakingPeaks ] <- "#FFCC00"
+		col[ allPeaks %in% truePeaks ] <- "#33BB33"
+		mtext(side=3, at=xcor, text="|", col=col)
 		
 		# Intensity filter
 		xlim <- par()$usr[1:2]
@@ -111,19 +123,13 @@ align.fsa <- function(
 		rect(xleft=xlim[1], xright=xlim[2], ybottom=sureIntensity-threshold, ytop=sureIntensity+threshold, col="#33BB3333", border=NA)
 		rect(xleft=xlim[1], xright=xlim[2], ybottom=par("usr")[3], ytop=noiseLevel, col="#BB333333", border=NA)
 		
-		# Peaks retained as size markers
-		if(is(status, "try-error")) { xcor <- truePeaks
-		} else                      { xcor <- attr(object, "ladderModel")[2] * truePeaks + attr(object, "ladderModel")[1]
-		}
-		axis(side=3, at=xcor, labels=FALSE, lwd.ticks=5, col.ticks="#33BB33")
-		
 		# Legend
 		legend(x="topright", bg="#FFFFFF",
-			pch =    c(1,         NA,        NA,          NA,          124,       124,       NA, NA,        NA),
-			col =    c("#000000", "#33BB33", NA,          NA,          "#BB3333", "#33BB33", NA, "#000000", NA),
-			lty =    c(NA,        "solid",   NA,          NA,          NA,        NA,        NA, "dotted",  NA),
-			fill =   c(NA,        NA,        "#33BB3333", "#BB333333", NA,        NA,        NA, NA,        NA),
-			border = c(NA,        NA,        "#000000",   "#000000",   NA,          NA,      NA, NA,        NA),
+			pch =    c(1,         NA,        NA,          NA,          124,       124,       124,       124,       NA, NA,        NA),
+			col =    c("#000000", "#33BB33", NA,          NA,          "#BB3333", "#FFCC00", "#888888", "#33BB33", NA, "#000000", NA),
+			lty =    c(NA,        "solid",   NA,          NA,          NA,        NA,        NA,        NA,        NA, "dotted",  NA),
+			fill =   c(NA,        NA,        "#33BB3333", "#BB333333", NA,        NA,        NA,        NA,        NA, NA,        NA),
+			border = c(NA,        NA,        "#000000",   "#000000",   NA,        NA,        NA,        NA,        NA, NA,        NA),
 			legend = c(
 				sprintf("'Sure' ladder peaks (%i last)", surePeaks),
 				"Ladder intensity (from 'sure' peaks)",
@@ -133,8 +139,10 @@ align.fsa <- function(
 					sprintf("Tolerance (+/- %g)", signif(outThreshold, 3))
 				),
 				sprintf("Noise (< %g)", signif(noiseLevel, 3)),
-				"Excluded as a ladder peak",
-				"Retained as a ladder peak",
+				"Excluded : out of tolerance",
+				"Excluded : channel leakage",
+				"Excluded : trimmed",
+				"Retained",
 				sprintf("Matching to ladder sizes : %s", trim),
 				"Retained for alignment model",
 				sprintf("R-squared = %g (%s)", round(rSquared, 6), ifelse(rSquared > rMin, "OK", "MISALIGNED"))

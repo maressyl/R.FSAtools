@@ -10,10 +10,10 @@
 
 \usage{
   align.fsa(x, channel = "ROX", fullLadder = c(50, 60, 90, 100, 120, 150, 160, 180, 190,
-    200, 220, 240, 260, 280, 290, 300, 320, 340, 360, 380, 400), useLadder = c(50, 60, 90,
-    100, 120), outThreshold = 0.15, noiseLevel = 10, surePeaks = 5,
-    trim = c("forward", "backward", "none"), maskOffScale = FALSE, rMin = 0.999,
-    rescue = FALSE, ylim = NULL, ...)
+    200, 220, 240, 260, 280, 290, 300, 320, 340, 360, 380, 400), useLadder = c(50, 60, 
+    90, 100, 120), outThreshold = 0.15, noiseLevel = 10, surePeaks = 5,
+	leakingRatios = c(-1, 10), trim = c("forward", "backward", "none"),
+	maskOffScale = FALSE, rMin = 0.999, rescue = FALSE, ylim = NULL, ...)
 }
 
 \arguments{
@@ -40,6 +40,9 @@
 }
   \item{surePeaks}{
     Single integer value, amount of peaks to use to compute size-marker intensity. They are selected at the end of the profile, as most artefacts are observed ate the beginning. Consider to reduce this value if your assay was prematurely ended.
+}
+  \item{leakingRatios}{
+    Numeric vector of length two, defining the thresholds to consider a marker peak as a leakage from another channel. A leakage is expected to show at least one channel with a negative value below the absolute value of the marker channel (first ratio, -1) and another channel with a positive value higher than 10 times the absolute value of the marker channel (second ratio, 10).
 }
   \item{trim}{
     Single character value, defining how to behave when more/less peaks than expected are read. "forward" will keep first peaks and adjust discarding the last ones, "backward" will keep last peaks and adjust discarding the first ones, and "none" will generate an error.

@@ -6,6 +6,7 @@
     \item{New design, example files and genotype.fsa() added to illustrate the genotyping application.}
     \item{peaks.fsa() and classify() now updates a fsa object as align.fsa() does rather than returning R variables.}
     \item{Multiple function addition and replacement to better fit the new pipeline paradigm.}
+	\item{align.fsa() now detects and discards peaks corresponding to channel leakages.}
 	\item{Sample name, well and run name now extracted by read.fsa().}
 	\item{'runMetaData' attribute becomes 'metaData'.}
   }
