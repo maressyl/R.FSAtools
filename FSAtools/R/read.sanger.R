@@ -4,16 +4,16 @@ read.sanger <- function(file, channelOrder=NULL, guess.threshold=0.3) {
 	obj <- read.fsa(file, processed=TRUE, applyLowess=FALSE, meta.extra=c(sequence="PBAS", quality="PCON", peaks="PLOC"))
 
 	# Called sequence
-	seq <- strsplit(attr(obj, "runMetaData")$sequence["PBAS.1"], split="")[[1]]
+	seq <- strsplit(attr(obj, "metaData")$sequence["PBAS.1"], split="")[[1]]
 	filter <- seq %in% c("A", "C", "G", "T")
 	seq <- seq[filter]
 	
 	# Quality
-	phred <- as.integer(charToRaw(attr(obj, "runMetaData")$quality["PCON.1"]))
+	phred <- as.integer(charToRaw(attr(obj, "metaData")$quality["PCON.1"]))
 	phred <- phred[filter]
 	
 	# Peak positions
-	peaks <- attr(obj, "runMetaData")$peaks
+	peaks <- attr(obj, "metaData")$peaks
 	peaks <- as.integer(peaks[ grep("^PLOC\\.1", names(peaks)) ])
 	
 	# Enforce size consistency

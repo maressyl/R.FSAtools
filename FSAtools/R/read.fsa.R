@@ -82,10 +82,11 @@ read.fsa <- function(
 	
 	# Metadata to collect
 	collect <- c(
+		sample = "SpNm",
+		well = "TUBE",
+		name = "RunN",
 		user = "User",
 		machine = "MCHN",
-		sample.name = "SpNm",
-		sample.well = "TUBE",
 		runModule.name = "RMdN",
 		runModule.version = "RMdV",
 		runProtocole.name = "RPrN",
@@ -123,7 +124,7 @@ read.fsa <- function(
 	if("RMdX.1" %in% names(fsa$Data) && grepl(regex, fsa$Data$RMdX.1)) meta$injectionTime <- sub(regex, "\\1", fsa$Data$RMdX.1)
 	
 	# Store metadata
-	attr(x, "runMetaData") <- meta
+	attr(x, "metaData") <- meta
 	
 	# Off scale values (if any)
 	attr(x, "offScale") <- as.integer(fsa$Data$OfSc.1) + 1L

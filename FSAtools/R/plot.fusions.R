@@ -40,10 +40,10 @@ plot.fusions <- function(sampleName, forward, reverse, forwardFile, reverseFile,
 		at <- par("usr")[1] + 0.1 * diff(par("usr")[1:2])
 		mtext(side=3, line=-1, adj=0, cex=1, at=at, text=sprintf("%s (%s)", sampleName, way), font=2)
 		mtext(side=3, line=-2, adj=0, cex=0.7, at=at, text=ifelse(way == "forward", forwardFile, reverseFile))
-		mtext(side=3, line=-2.8, adj=0, cex=0.7, at=at, text=sprintf("Run started on %s", attr(objects[[way]], "runMetaData")$runStart))
-		mtext(side=3, line=-3.6, adj=0, cex=0.7, at=at, text=sprintf("Machine : %s", attr(objects[[way]], "runMetaData")$machine))
-		mtext(side=3, line=-4.4, adj=0, cex=0.7, at=at, text=sprintf("Module : %s %s", attr(objects[[way]], "runMetaData")$runModule.name, attr(objects[[way]], "runMetaData")$runModule.version))
-		mtext(side=3, line=-5.2, adj=0, cex=0.7, at=at, text=sprintf("Protocole : %s %s", attr(objects[[way]], "runMetaData")$runProtocole.name, attr(objects[[way]], "runMetaData")$runProtocole.version))
+		mtext(side=3, line=-2.8, adj=0, cex=0.7, at=at, text=sprintf("Run started on %s", attr(objects[[way]], "metaData")$runStart))
+		mtext(side=3, line=-3.6, adj=0, cex=0.7, at=at, text=sprintf("Machine : %s", attr(objects[[way]], "metaData")$machine))
+		mtext(side=3, line=-4.4, adj=0, cex=0.7, at=at, text=sprintf("Module : %s %s", attr(objects[[way]], "metaData")$runModule.name, attr(objects[[way]], "metaData")$runModule.version))
+		mtext(side=3, line=-5.2, adj=0, cex=0.7, at=at, text=sprintf("Protocole : %s %s", attr(objects[[way]], "metaData")$runProtocole.name, attr(objects[[way]], "metaData")$runProtocole.version))
 		
 		for(match in identified$top$i) {
 			# Background
