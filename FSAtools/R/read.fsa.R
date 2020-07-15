@@ -1,7 +1,8 @@
 # Imports a .fsa file from Applied Biosystems, using the provided converter
 read.fsa <- function(
 		file,
-		applyLowess = TRUE,
+		lowess = TRUE,
+		lowess.top = 200,
 		processed = FALSE,
 		meta.extra = NULL,
 		quiet = FALSE,
@@ -36,7 +37,12 @@ read.fsa <- function(
 		values <- fsa$Data[[ sprintf("DATA.%i", dataTracks[i]) ]]
 		
 		# Apply lowess to reduce time bias
-		if(isTRUE(applyLowess) && scanCount > 0) values <- values - lowess(x=1:length(values), y=values)$y
+		if(isTRUE(lowess) && scanCount > 0) {
+			x <- values
+			x[ as.integer(fsa$Data$OfSc.1) + 1L ] <- lowess.top
+			x[ x > lowess.top ] <- lowess.top
+			values <- values - lowess(x=1:length(values), y=x)$y
+		}
 		
 		# Update value matrix
 		channelValues[[i]] <- values
@@ -76,7 +82,7 @@ read.fsa <- function(
 	colnames(x) <- dyeNames
 	
 	# Attributes
-	attr(x, "lowess") <- isTRUE(applyLowess)
+	attr(x, "lowess") <- isTRUE(lowess)
 	attr(x, "wavelengths") <- dyeWavelengths
 	attr(x, "colors") <- dyeColors
 	

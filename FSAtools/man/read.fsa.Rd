@@ -9,7 +9,7 @@
 }
 
 \usage{
-  read.fsa(file, applyLowess = TRUE, processed = FALSE, meta.extra = NULL,
+  read.fsa(file, lowess = TRUE, lowess.top = 200, processed = FALSE, meta.extra = NULL,
     quiet = FALSE, ...)
 }
 
@@ -17,8 +17,11 @@
   \item{file}{
     Single character value, the name and path of the file to parse.
 }
-  \item{applyLowess}{
+  \item{lowess}{
     Single logical value, whether to apply \code{\link{lowess}} on intensities to smooth time-related biases or not.
+}
+  \item{lowess.top}{
+    Single numeric value, values flagged as "off-scale" or above this threshold will be replaced by \code{lowess.top} to compute the lowess smooth, in order to limit the impact of high and wide peaks.
 }
   \item{processed}{
     Single logical value, whether to use processed DATA values (as stored in sets 9 to 12, not always available) rather than raw values (sets 1 to 4). If \code{NA}, processed ones will be used as long as they are available, else raw ones will be used instead.
