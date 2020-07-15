@@ -1,5 +1,5 @@
 # Call alleles from peak sets
-genotype.fsa <- function(
+genotype.ratio.fsa <- function(
 		x,
 		homo = 0.85,
 		hetero = c(0.3, 0.7)
