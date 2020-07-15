@@ -47,6 +47,6 @@
 }
 
 \seealso{
-  \code{\link{read.fsa}}, \code{\link{peaks.fsa}}, \code{\link{genotype.fsa}}, \code{\link{classify}}
+  \code{\link{read.fsa}}, \code{\link{peaks.fsa}}, \code{\link{genotype.closest.fsa}}, \code{\link{genotype.ratio.fsa}}, \code{\link{classify}}
 }
 
