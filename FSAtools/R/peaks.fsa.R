@@ -35,7 +35,7 @@ peaks.fsa <- function(
 		if(!missing(colors))   peaks$colors   <- colors
 		
 		# Check
-		if(!setequal(colnames(peaks), c("size.min", "size.max", "channel", "color"))) stop("'peaks' must have 'size.min', 'size.max', 'channel' and 'color' columns")
+		if(!all(c("size.min", "size.max", "channel", "color") %in% colnames(peaks))) stop("'peaks' must have 'size.min', 'size.max', 'channel' and 'color' columns")
 	}
 	
 	# Points sizes (in bp)
