@@ -100,23 +100,87 @@ plot.fsa <- function(
 	offScaleValues <- x[ attr(x, "offScale") , , drop=FALSE ]
 	x[ attr(x, "offScale") ,] <- NA
 	
-	# Plot channels
-	first <- TRUE
-	for(h in channels) {
-		if(!first) par(new=TRUE)
-		plot(
-			x = xcor, y = x[,h],
-			xlim = xlim, ylim = ylim,
-			xlab = ifelse(first, xlab, ""),
-			ylab = ifelse(first, ylab, ""),
-			xaxt = ifelse(first, xaxt, "n"),
-			yaxt = ifelse(first, yaxt, "n"),
-			bty = ifelse(first, bty, "n"),
-			col = chanColors[h],
-			type="l", xaxp = xaxp,
-			...
+	# Background
+	plot(
+		x = NA, y = NA,
+		xlim = xlim, ylim = ylim,
+		xlab = xlab,
+		ylab = ylab,
+		xaxt = xaxt,
+		yaxt = yaxt,
+		bty = bty,
+		xaxp = xaxp,
+		...
+	)
+	
+	# Peaks
+	peaks <- attr(x, "peaks")
+	if(!is.null(peaks)) {
+		# Ignore invisible peaks
+		peaks <- peaks[ !is.na(peaks$color) ,]
+		
+		# Transparent version of peak colors
+		peaks$background <- sprintf(
+			"#%s",
+			apply(
+				as.character(
+					as.hexmode(
+						rbind(
+							col2rgb(peaks$color),
+							peaks.alpha
+						)
+					)
+				),
+				2,
+				paste,
+				collapse = ""
+			)
 		)
-		if(first) first <- FALSE
+		
+		# Full height rectangles
+		rect(
+			xleft = peaks$size.min,
+			xright = peaks$size.max,
+			ybottom = -1e6,
+			ytop = 1e6,
+			col = peaks$background,
+			border = NA
+		)
+		
+		if(all(c("N0", "N1", "N2") %in% colnames(peaks))) {
+			# Allele rectangles
+			rect(
+				xleft = peaks$size.min,
+				xright = peaks$size.max,
+				ybottom = c(peaks$N0, peaks$N0) * peaks$height / peaks$normalized,
+				ytop = c(peaks$N1, peaks$N2) * peaks$height / peaks$normalized,
+				col = peaks$background,
+				border = NA
+			)
+		}
+		
+		# Names
+		text(
+			x = (peaks$size.min + peaks$size.max) / 2,
+			y = par("usr")[4] + diff(par("usr")[3:4]) / 50,
+			labels = rownames(peaks),
+			srt = peaks.srt,
+			adj = peaks.adj,
+			cex = peaks.cex,
+			font = peaks.font,
+			xpd = NA,
+			col = peaks$color
+		)
+	}
+	
+	# Plot channels
+	for(h in channels) {
+		points(
+			x = xcor,
+			y = x[,h],
+			col = chanColors[h],
+			type = "l"
+		)
 	}
 	
 	# Plot bp axis
@@ -152,54 +216,6 @@ plot.fsa <- function(
 			segments(x0=at, y0=par("usr")[4], x1=at, y1=par("usr")[3]-diff(par("usr")[3:4])/8, lty="dotted", xpd=NA)
 			mtext(side=1, at=at, text=names(attr(x, "ladderExact")), line=2)
 		} else warning("Can't add ladder without alignment ('ladderExact' attribute)")
-	}
-	
-	# Peaks
-	peaks <- attr(x, "peaks")
-	if(!is.null(peaks)) {
-		# Ignore invisible peaks
-		peaks <- peaks[ !is.na(peaks$color) ,]
-		
-		# Transparent version of peak colors
-		peaks$background <- sprintf(
-			"#%s",
-			apply(
-				as.character(
-					as.hexmode(
-						rbind(
-							col2rgb(peaks$color),
-							peaks.alpha
-						)
-					)
-				),
-				2,
-				paste,
-				collapse = ""
-			)
-		)
-		
-		# Rectangles
-		rect(
-			xleft = peaks$size.min,
-			xright = peaks$size.max,
-			ybottom = -1e6,
-			ytop = 1e6,
-			col = peaks$background,
-			border = NA
-		)
-		
-		# Names
-		text(
-			x = (peaks$size.min + peaks$size.max) / 2,
-			y = par("usr")[4] + diff(par("usr")[3:4]) / 50,
-			labels = rownames(peaks),
-			srt = peaks.srt,
-			adj = peaks.adj,
-			cex = peaks.cex,
-			font = peaks.font,
-			xpd = NA,
-			col = peaks$color
-		)
 	}
 	
 	# Legend
