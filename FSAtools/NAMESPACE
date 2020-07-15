@@ -9,7 +9,7 @@ importFrom("methods", "is")
 
 # Exports (generic)
 export("generic.interface", "generic.process", "designFile")
-export("read.abif", "read.fsa", "align.fsa", "peaks.fsa", "genotype.fsa", "export.attr", "add.model", "multiplot")
+export("read.abif", "read.fsa", "align.fsa", "filter.fsa", "peaks.fsa", "genotype.ratio.fsa", "genotype.closest.fsa", "export.attr", "add.model", "multiplot")
 export("train", "classify")
 export("wav2RGB")
 S3method("plot", "fsaModel")
