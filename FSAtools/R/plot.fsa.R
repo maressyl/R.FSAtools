@@ -172,6 +172,18 @@ plot.fsa <- function(
 			xpd = NA,
 			col = peaks$color
 		)
+		
+		# Genotyping N1-based
+		if("present" %in% colnames(peaks)) {
+			text(
+				x = (peaks$size.min + peaks$size.max) / 2,
+				y = par("usr")[4],
+				adj = c(0.5, 1),
+				col = chanColors[ peaks$channel ],
+				labels = ifelse(peaks$present, "+", "-"),
+				font = 2
+			)
+		}
 	}
 	
 	# Plot channels

@@ -2,8 +2,9 @@
 designFile <- function(fileName) {
 	# Design sections
 	rawDesign <- readLines(fileName)
-	sectionStarts <- grep("^\\s*\\[([A-Za-z\\._:]+)\\]\\s*$", rawDesign)
-	sectionNames <- sub("^\\s*\\[([A-Za-z\\._:]+)\\]\\s*$", "\\1", rawDesign[sectionStarts])
+	regex <- "^\\s*\\[(.+)\\]\\s*$"
+	sectionStarts <- grep(regex, rawDesign)
+	sectionNames <- sub(regex, "\\1", rawDesign[sectionStarts])
 	boundaries <- c(sectionStarts, length(rawDesign)+1L)
 	
 	# Returned list
