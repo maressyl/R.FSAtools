@@ -28,6 +28,7 @@ plot.fsa <- function(
 		peaks.adj = c(0, 0),
 		peaks.cex = 1.3,
 		peaks.font = 2,
+		legend.x = "topleft",
 		...
 	) {
 	# Defaults
@@ -220,7 +221,7 @@ plot.fsa <- function(
 	
 	# Legend
 	inset <- c(par("din")[2]/1000, par("din")[1]/1000)
-	legend("topleft", inset=inset, legend=colnames(x[, channels, drop=FALSE]), col=chanColors[channels], lty="solid", bg="#FFFFFF")
+	legend(legend.x, inset=inset, legend=colnames(x[, channels, drop=FALSE]), col=chanColors[channels], lty="solid", bg="#FFFFFF")
 	
 	# Title
 	title(main=title, adj=title.adj, line=title.line)

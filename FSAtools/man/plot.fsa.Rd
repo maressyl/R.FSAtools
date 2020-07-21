@@ -14,7 +14,7 @@
     fg = "black", title = "", title.adj = 0, title.line = NA, xlab = NA,
     ylab = "Intensity", xlim = NA, ylim = NA, xaxt = "s", yaxt = "s", bty = "o",
     xaxp = NA, nticks = 5, all.bp = TRUE, peaks.alpha = 48L, peaks.srt = 30,
-    peaks.adj = c(0, 0), peaks.cex = 1.3, peaks.font = 2, ...)
+    peaks.adj = c(0, 0), peaks.cex = 1.3, peaks.font = 2, legend.x = "topleft", ...)
 }
 
 \arguments{
@@ -101,6 +101,9 @@
 }
   \item{peaks.font}{
     To be passed as \code{font} to \code{\link{text}} while printing peak names.
+}
+  \item{legend.x}{
+    To be passed as \code{x} to \code{\link{legend}}.
 }
   \item{\dots}{
     Further arguments to be passed to \code{\link{plot}}.

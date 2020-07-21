@@ -11,6 +11,7 @@
 	\item{align.fsa() now detects and discards peaks corresponding to channel leakages.}
 	\item{Sample name, well and run name now extracted by read.fsa().}
 	\item{'runMetaData' attribute becomes 'metaData'.}
+	\item{'legend.x' argument added to plot.fsa().}
   }
 }
 \section{Changes in version 1.10.1 (2020-06-09)}{
