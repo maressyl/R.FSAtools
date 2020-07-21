@@ -12,8 +12,8 @@ genotype.closest.fsa <- function(
 	if(!all(c("N0","N1","N2") %in% colnames(peaks))) stop("'x' peak table must have N0, N1 and N2 optional columns")
 	
 	# Loci
-	peaks$locus <- sub("_(.+)$", "", rownames(peaks))
-	peaks$allele <- sub("^(.+)_", "", rownames(peaks))
+	peaks$locus <- sub("^(.+) - (.+)$", "\\2", rownames(peaks))
+	peaks$allele <- sub("^(.+) - (.+)$", "\\1", rownames(peaks))
 	peaks <- peaks[ order(peaks$locus, peaks$allele) ,]
 	
 	# Closest key value

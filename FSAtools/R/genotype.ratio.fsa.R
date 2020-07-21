@@ -13,8 +13,8 @@ genotype.ratio.fsa <- function(
 	if(!is.data.frame(peaks)) stop("'x' must have been processed with peaks.fsa()")
 	
 	# Loci
-	peaks$locus <- sub("_(.+)$", "", rownames(peaks))
-	peaks$allele <- sub("^(.+)_", "", rownames(peaks))
+	peaks$locus <- sub("^(.+) - (.+)$", "\\2", rownames(peaks))
+	peaks$allele <- sub("^(.+) - (.+)$", "\\1", rownames(peaks))
 	peaks <- peaks[ order(peaks$locus, peaks$allele) ,]
 	
 	# Locus storage

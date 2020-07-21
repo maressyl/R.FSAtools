@@ -37,6 +37,10 @@
 }
 }
 
+\note{
+  All three functions assume peaks to be named according to the following convention : "ALLELE - LOCUS".
+}
+
 \value{
   Returns \code{x}, with a new or updated \code{genotypes} attribute, a \code{data.frame} with a row for each locus :
   \item{call}{The concatenation of the two called alleles, possibly with \code{?}.}

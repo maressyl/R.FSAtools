@@ -13,8 +13,8 @@ genotype.N1.fsa <- function(
 	if(!"N1" %in% colnames(peaks)) stop("'x' peak table must have a N1 optional columns")
 	
 	# Loci
-	peaks$locus <- sub("_(.+)$", "", rownames(peaks))
-	peaks$allele <- sub("^(.+)_", "", rownames(peaks))
+	peaks$locus <- sub("^(.+) - (.+)$", "\\2", rownames(peaks))
+	peaks$allele <- sub("^(.+) - (.+)$", "\\1", rownames(peaks))
 	
 	# Allele is present
 	attr(x, "peaks")$present <- peaks$present <- peaks$normalized >= peaks$N1 * threshold
