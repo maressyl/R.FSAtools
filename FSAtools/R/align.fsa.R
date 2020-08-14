@@ -115,7 +115,7 @@ align.fsa <- function(
 		col[ allPeaks %in% outlierPeaks ] <- "#BB3333"
 		col[ allPeaks %in% leakingPeaks ] <- "#FFCC00"
 		col[ allPeaks %in% truePeaks ] <- "#33BB33"
-		mtext(side=3, at=xcor, text="|", col=col)
+		if(length(xcor) > 0L) mtext(side=3, at=xcor, text="|", col=col)
 		
 		# Intensity filter
 		xlim <- par()$usr[1:2]
