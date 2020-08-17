@@ -1,6 +1,6 @@
 \name{FSAtools-news}
 \title{FSAtools package NEWS}
-\section{Changes in version 2.0.0 (2020-08-14)}{
+\section{Changes in version 2.0.0 (2020-08-17)}{
   \itemize{
     \item{MLPA becomes FSAtools, as it is now generic enough for other applications. GEP.process() and GEP.interface() are replaced by generic.process() and generic.interface(), with an enhanced (not retrocompatible) design file specification (see designFile() help page).}
     \item{New design, example files, and genotype.(...).fsa functions added to illustrate the genotyping application.}
