@@ -1,8 +1,8 @@
 # Imports a .ab1 / .fsa file from Applied Biosystems, using the provided converter
-read.sanger <- function(file, channelOrder=NULL, guess.threshold=0.3) {
+read.sanger <- function(file, channelOrder=NULL, guess.threshold=0.3, processed=NA, lowess=FALSE, ...) {
 	# Parse the ABIF file
-	obj <- read.fsa(file, processed=TRUE, applyLowess=FALSE, meta.extra=c(sequence="PBAS", quality="PCON", peaks="PLOC"))
-
+	obj <- read.fsa(file, lowess=lowess, processed=processed, meta.extra=c(sequence="PBAS", quality="PCON", peaks="PLOC"), ...)
+	
 	# Called sequence
 	seq <- strsplit(attr(obj, "metaData")$sequence["PBAS.1"], split="")[[1]]
 	filter <- seq %in% c("A", "C", "G", "T")

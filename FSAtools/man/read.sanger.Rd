@@ -9,7 +9,7 @@
 }
 
 \usage{
-  read.sanger(file, channelOrder = NULL, guess.threshold = 0.3)
+  read.sanger(file, channelOrder = NULL, guess.threshold = 0.3, processed = NA, lowess = FALSE, ...)
 }
 
 \arguments{
@@ -21,6 +21,15 @@
 }
   \item{guess.threshold}{
     Single numeric value, setting the tolerance to use for channel guessing validation. Lower values mean higher chances to get an error for channel guessing failure.
+}
+  \item{processed}{
+    To be passed to \code{\link{read.fsa}}.
+}
+  \item{lowess}{
+    To be passed to \code{\link{read.fsa}}.
+}
+  \item{\dots}{
+    To be passed to \code{\link{read.fsa}}.
 }
 }
 
