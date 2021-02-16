@@ -3,6 +3,8 @@ generic.process <- function(
 		input,
 		design,
 		output,
+		include = NULL,
+		exclude = NULL,
 		progressBar = NULL
 	) {
 	# Version
@@ -22,7 +24,11 @@ generic.process <- function(
 	design <- designFile(design)
 	
 	# File list
-	toProcess <- dir(input, full.names=TRUE, recursive=TRUE, pattern="\\.fsa$")
+	toProcess <- dir(input, full.names=TRUE, recursive=TRUE, pattern="\\.fsa$", ignore.case=TRUE)
+	if(!is.null(include)) toProcess <- grep(include, toProcess, value=TRUE)
+	if(!is.null(exclude)) toProcess <- grep(exclude, toProcess, value=TRUE, invert=TRUE)
+	
+	# Progress bar
 	if(!is.null(progressBar)) {
 		tcltk::tcl(progressBar, "configure", maximum=length(toProcess))
 		tcltk::tcl(progressBar, "configure", value=0)

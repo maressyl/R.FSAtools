@@ -11,7 +11,7 @@
 }
 
 \usage{
-  generic.process(input, design, output, progressBar = NULL)
+  generic.process(input, design, output, include = NULL, exclude = NULL, progressBar = NULL)
   generic.interface()
 }
 
@@ -24,6 +24,12 @@
 }
   \item{output}{
     Single character value, the path to a ".pdf" or ".log" file that will be created during the analysis.
+}
+  \item{include}{
+    Single character value, a regular expression files (with relative path) in \code{input} must match to be processed (ignored if \code{NULL}).
+}
+  \item{exclude}{
+    Single character value, a regular expression files (with relative path) in \code{input} must not match to be processed (ignored if \code{NULL}).
 }
   \item{progressBar}{
     A \code{ttkprogressbar} to increment during the processing, or \code{NULL}. This argument is only provided to connect \code{GEP.interface} and \code{GEP.process}, thus it should be ignored.
