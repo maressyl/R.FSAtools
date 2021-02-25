@@ -15,11 +15,18 @@ designFile <- function(fileName) {
 		n <- length(conf) + 1L
 		
 		# Modifiers
-		if(grepl("^(.+):(first|last|table)$", sectionNames[s])) {
-			modifier <- sub("^(.+):(first|last|table)$", "\\2", sectionNames[s])
-			section <- sub("^(.+):(first|last|table)$", "\\1", sectionNames[s])
+		if(grepl(":", sectionNames[s])) {
+			# Extract elements
+			section <- sub(":.+$", "", sectionNames[s])
+			modifiers <- sub("^.+:", "", sectionNames[s])
+			modifiers <- strsplit(modifiers, split=",", fixed=TRUE)[[1]]
+			
+			# Validate modifiers
+			unknown <- setdiff(modifiers, c("first", "last", "table", "nowarn"))
+			if(length(unknown) > 0L) stop("Unknown modifier(s) : ", paste(unknown, collapse=", "))
 		} else {
-			modifier <- NULL
+			# No modifier
+			modifiers <- NULL
 			section <- sectionNames[s]
 		}
 		
@@ -31,8 +38,8 @@ designFile <- function(fileName) {
 		
 		# Subtype
 		if(type == "global") {
-			if(identical(modifier, "table")) { type <- "global.table"
-			} else                           { type <- "global.list"
+			if("table" %in% modifiers) { type <- "global.table"
+			} else                     { type <- "global.list"
 			}
 		}
 		
@@ -70,7 +77,7 @@ designFile <- function(fileName) {
 			# Store
 			conf[[n]] <- processed
 			names(conf)[n] <- section
-			attr(conf[[n]], "modifier") <- modifier
+			attr(conf[[n]], "modifiers") <- modifiers
 			
 			# Function arguments
 			arguments <- formals(section)

@@ -52,45 +52,23 @@ generic.interface <- function() {
 		# Watch cursor
 		tcltk::tkconfigure(topLevel, cursor="watch")
 		
-		# Error-catching processing
+		# Log file
+		logFile <- sprintf("%s.log", tcltk::tclvalue(outputValue))
 		
-		handle(
-			expr = {
-				# Log file
-				logFile <- sprintf("%s.log", tcltk::tclvalue(outputValue))
-				warnCount <- 0L
-				cat("", file=logFile)
-				
-				# CLI call
-				generic.process(
-					input = tcltk::tclvalue(inputValue),
-					design = tcltk::tclvalue(designValue),
-					output = tcltk::tclvalue(outputValue),
-					progressBar = progressBar
-				)
-				
-				# Done
-				if(warnCount == 0) { tcltk::tkmessageBox(parent=topLevel, parent=topLevel, icon="info", type="ok", title="Done", message="Processing achieved without warning.")
-				} else             { tcltk::tkmessageBox(parent=topLevel, parent=topLevel, icon="warning", type="ok", title="Done", message=sprintf("Processing achieved with %i warning(s), please refer to the log file.", warnCount))
-				}
-			},
-			messageHandler = function(m) {
-				mes <- conditionMessage(m)
-				if(grepl("^Processing", mes) || grepl("^Partial output", mes) || grepl("^All done", mes)) {
-				         cat(sprintf("\n%-10s%s", "", mes), file=logFile, append=TRUE)
-				} else { cat(sprintf("%-10s%s", "", mes), file=logFile, append=TRUE)
-				}
-			},
-			warningHandler = function(w) {
-				cat(sprintf("%-10s%s\n", "[WARNING]", conditionMessage(w)), file=logFile, append=TRUE)
-				warnCount <<- warnCount + 1L
-			},
-			errorHandler = function(e) {
-				cat(sprintf("%-10s%s\n", "[ERROR]", conditionMessage(e)), file=logFile, append=TRUE)
-				tcltk::tkmessageBox(parent=topLevel, icon="error", type="ok", title="R error", message=sprintf("An error occured, check the log file for details.\n(%s)", conditionMessage(e)))
-				dev.off()
-			}
+		# Error-catching processing
+		status <- generic.log(
+			input = tcltk::tclvalue(inputValue),
+			design = tcltk::tclvalue(designValue),
+			output = tcltk::tclvalue(outputValue),
+			progressBar = progressBar,
+			logFile = logFile
 		)
+		
+		# Status
+		if(is(status, "error"))            { tcltk::tkmessageBox(parent=topLevel, icon="error", type="ok", title="R error", message=sprintf("An error occured, check the log file for details.\n(%s)", conditionMessage(status)))
+		} else if(identical(status, TRUE)) { tcltk::tkmessageBox(parent=topLevel, parent=topLevel, icon="info", type="ok", title="Done", message="Processing achieved without warning.")
+		} else                             { tcltk::tkmessageBox(parent=topLevel, parent=topLevel, icon="warning", type="ok", title="Done", message=sprintf("Processing achieved with %i warning(s), please refer to the log file.", status))            
+		}
 		
 		# Normal cursor
 		tcltk::tkconfigure(topLevel, cursor="arrow")

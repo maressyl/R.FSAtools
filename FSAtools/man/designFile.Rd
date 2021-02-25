@@ -22,10 +22,11 @@
   
   Standard sections refer to an existing R function (the section name is expected to match the function name in a case-sensitive manner), each line in the section setting an argument to call this function : the first value is the argument name, then after a tabulation come one or many values separated by tabulations. Multiple values will be aggregated into a vector, and \code{type.convert} will try to guess the correct type.
   
-  One modifier can be added in the section name after the function name, separated by \code{:} (e.g. \code{pdf:first}). Modifiers have the following effects :
+  One or many modifiers can be added in the section name after the function name followed by the \code{:} sign and separated by commas (e.g. \code{file.remove:first,nowarn}). Modifiers have the following effects :
   \describe{
 	\item{first}{The function will be called only once, while processing the first .fsa file.}
 	\item{last}{The function will be called only once, while processing the last .fsa file.}
+	\item{nowarn}{The function will be embedded inside \code{suppressWarnings} to silently ignore warnings.}
   }
   
   \code{$NAME} and \code{@NAME} can be used while setting an argument to refer to global variable \code{NAME}. Use \code{$} reference for character variables, which will be replaced with \code{gsub} and can thus be combined (e.g. \code{$NAME.txt}). Use \code{@} reference to obtain the raw R variable, regardless of its type. Default globals are :

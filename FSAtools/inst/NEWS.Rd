@@ -1,5 +1,12 @@
 \name{FSAtools-news}
 \title{FSAtools package NEWS}
+\section{Changes in version 2.0.2 (2021-02-25)}{
+  \itemize{
+    \item{generic.log() entry point added.}
+    \item{'nowarn' modifier added to design files for generic.process().}
+    \item{Design files and generic.process() now accept multiple modifiers separated by commas.}
+  }
+}
 \section{Changes in version 2.0.1 (2021-02-16)}{
   \itemize{
     \item{'include' and 'exclude' arguments added to generic.process().}

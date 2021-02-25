@@ -58,10 +58,10 @@ generic.process <- function(
 		# Call functions listed in design order
 		for(i in 1:length(design)) {
 			if(names(design)[i] != "GLOBALS") {
-				# Loop modifiers
-				modifier <- attr(design[[i]], "modifier")
-				if(identical(modifier, "first") && file != head(toProcess, 1)) next
-				if(identical(modifier, "last")  && file != tail(toProcess, 1)) next
+				# Call modifiers
+				modifiers <- attr(design[[i]], "modifiers")
+				if("first" %in% modifiers && file != head(toProcess, 1)) next
+				if("last" %in% modifiers  && file != tail(toProcess, 1)) next
 				
 				message("- ", names(design)[i])
 				
@@ -88,7 +88,9 @@ generic.process <- function(
 				}
 				
 				# Call function
-				out <- do.call(names(design)[i], args)
+				if("nowarn" %in% modifiers) { out <- suppressWarnings(do.call(names(design)[i], args))
+				} else                      { out <- do.call(names(design)[i], args)
+				}
 				
 				# OBJECT global
 				if(is(out, "fsa")) globals$OBJECT <- out

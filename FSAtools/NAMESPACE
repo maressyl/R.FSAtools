@@ -8,7 +8,7 @@ import("utils")
 importFrom("methods", "is")
 
 # Exports (generic)
-export("generic.interface", "generic.process", "designFile")
+export("generic.interface", "generic.log", "generic.process", "designFile")
 export("read.abif", "read.fsa", "align.fsa", "filter.fsa", "peaks.fsa", "genotype.ratio.fsa", "genotype.closest.fsa", "genotype.N1.fsa", "export.attr", "add.model", "multiplot")
 export("train", "classify")
 export("wav2RGB")
