@@ -11,7 +11,8 @@
 }
 
 \usage{
-  generic.process(input, design, output, include = NULL, exclude = NULL, progressBar = NULL)
+  generic.process(input, design, output, include = NULL, exclude = NULL,
+     progressBar = NULL)
   generic.interface()
 }
 

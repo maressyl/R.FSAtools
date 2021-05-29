@@ -1,5 +1,10 @@
 \name{FSAtools-news}
 \title{FSAtools package NEWS}
+\section{Changes in version 2.0.3 (2021-05-29)}{
+  \itemize{
+    \item{Minor updates for CRAN submission.}
+  }
+}
 \section{Changes in version 2.0.2 (2021-02-25)}{
   \itemize{
     \item{generic.log() entry point added.}

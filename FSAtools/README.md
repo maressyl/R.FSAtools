@@ -15,7 +15,7 @@ Availability
 
 A short presentation of the project can be found on my personnal website.
 
-* **WWW** : http://bioinformatics.ovsa.fr/FSAtools
+* **WWW** : https://bioinformatics.ovsa.fr/FSAtools
 
 Release sources and builds can be found in the CRAN repository :
 

@@ -9,7 +9,8 @@
 }
 
 \usage{
-  read.sanger(file, channelOrder = NULL, guess.threshold = 0.3, processed = NA, lowess = FALSE, ...)
+  read.sanger(file, channelOrder = NULL, guess.threshold = 0.3, processed = NA,
+     lowess = FALSE, ...)
 }
 
 \arguments{
