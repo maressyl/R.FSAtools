@@ -1,8 +1,9 @@
 \name{FSAtools-news}
 \title{FSAtools package NEWS}
-\section{Changes in version 2.0.3 (2021-05-29)}{
+\section{Changes in version 2.0.3 (2021-07-13)}{
   \itemize{
     \item{Minor updates for CRAN submission.}
+    \item{genotype...() functions now preserve peak order.}
   }
 }
 \section{Changes in version 2.0.2 (2021-02-25)}{

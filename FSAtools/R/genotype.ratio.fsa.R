@@ -14,6 +14,7 @@ genotype.ratio.fsa <- function(
 	
 	# Loci
 	peaks$locus <- sub("^(.+) - (.+)$", "\\2", rownames(peaks))
+	peaks$locus <- factor(peaks$locus, levels=unique(peaks$locus))
 	peaks$allele <- sub("^(.+) - (.+)$", "\\1", rownames(peaks))
 	peaks <- peaks[ order(peaks$locus, peaks$allele) ,]
 	

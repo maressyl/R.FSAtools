@@ -15,6 +15,7 @@ genotype.N1.fsa <- function(
 	
 	# Loci
 	peaks$locus <- sub("^(.+) - (.+)$", "\\2", rownames(peaks))
+	peaks$locus <- factor(peaks$locus, levels=unique(peaks$locus))
 	peaks$allele <- sub("^(.+) - (.+)$", "\\1", rownames(peaks))
 	
 	# Allele is present
