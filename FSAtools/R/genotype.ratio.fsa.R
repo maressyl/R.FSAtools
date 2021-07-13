@@ -20,14 +20,14 @@ genotype.ratio.fsa <- function(
 	
 	# Locus storage
 	loci <- data.frame(
-		row.names = unique(peaks$locus),
+		row.names = levels(peaks$locus),
 		stringsAsFactors = FALSE
 	)
 	loci$call <- ""
 	
 	# Compute allelic ratio
 	for(locus in rownames(loci)) {
-		i <- peaks$locus == locus
+		i <- as.character(peaks$locus) == locus
 		peaks[i,"ratio"] <- (peaks[i,"height"] - min(peaks$height)) / sum(peaks[i,"height"] - min(peaks$height))
 	}
 	
@@ -38,11 +38,11 @@ genotype.ratio.fsa <- function(
 	
 	# Homozygous
 	indexes <- which(!is.na(peaks$call) & peaks$call == "homozygous")
-	for(i in indexes) loci[ peaks[i,"locus"] , "call" ] <- paste(loci[ peaks[i,"locus"] , "call" ], peaks[i,"allele"], peaks[i,"allele"], sep="")
+	for(i in indexes) loci[ as.character(peaks[i,"locus"]) , "call" ] <- paste(loci[ as.character(peaks[i,"locus"]) , "call" ], peaks[i,"allele"], peaks[i,"allele"], sep="")
 	
 	# Heterozygous
 	indexes <- which(!is.na(peaks$call) & peaks$call == "heterozygous")
-	for(i in indexes) loci[ peaks[i,"locus"] , "call" ] <- paste(loci[ peaks[i,"locus"] , "call" ], peaks[i,"allele"], sep="")
+	for(i in indexes) loci[ as.character(peaks[i,"locus"]) , "call" ] <- paste(loci[ as.character(peaks[i,"locus"]) , "call" ], peaks[i,"allele"], sep="")
 	
 	# Missing one
 	i <- nchar(loci$call) == 1L
