@@ -1,8 +1,8 @@
 Package: FSAtools
 Type: Package
 Title: Fragment Analysis and Capillary Sequencing Tool Kit
-Version: 2.0.3
-Date: 2021-07-13
+Version: 2.0.4
+Date: 2022-10-10
 Authors@R: c(
    person("Sylvain", "Mareschal", role=c("aut", "cre"), email="mareschal@ovsa.fr"),
    person("Philippe", "Ruminy", role=c("dtc", "ctb")),

@@ -124,17 +124,14 @@ plot.fsa <- function(
 		peaks$background <- sprintf(
 			"#%s",
 			apply(
-				as.character(
-					as.hexmode(
-						rbind(
-							col2rgb(peaks$color),
-							peaks.alpha
-						)
-					)
+				rbind(
+					col2rgb(peaks$color),
+					peaks.alpha
 				),
 				2,
-				paste,
-				collapse = ""
+				function(x) {
+					paste(sprintf("%02x", x), collapse="")
+				}
 			)
 		)
 		

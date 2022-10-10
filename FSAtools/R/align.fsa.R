@@ -88,6 +88,7 @@ align.fsa <- function(
 		# Store model
 		attr(x, "ladderModel") <- coefficients(model)
 		attr(x, "ladderExact") <- usePeaks
+		attr(x, "ladderR2") <- rSquared
 		names(attr(x, "ladderExact")) <- useSizes
 	})
 

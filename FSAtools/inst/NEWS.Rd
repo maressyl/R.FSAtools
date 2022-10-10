@@ -1,5 +1,11 @@
 \name{FSAtools-news}
 \title{FSAtools package NEWS}
+\section{Changes in version 2.0.4 (2022-10-10)}{
+  \itemize{
+    \item{align.fsa() now exports R-squared as attribute.}
+    \item{plot.fsa() bug on colors fixed.}
+  }
+}
 \section{Changes in version 2.0.3 (2021-07-13)}{
   \itemize{
     \item{Minor updates for CRAN submission.}
