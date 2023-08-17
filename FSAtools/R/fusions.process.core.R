@@ -23,7 +23,7 @@ fusions.process.core <- function(
 	
 	# 5 best alignments
 	message("Identifying fusions...")
-	idn <- identify.fusions(forward=forward, reverse=reverse, design=design, top=top)
+	idn <- fusions.identify(forward=forward, reverse=reverse, design=design, top=top)
 	
 	# Annotate output table
 	tab <- idn$top
@@ -35,7 +35,7 @@ fusions.process.core <- function(
 	message("Plotting the alignment...")
 	dev.args$file <- sprintf("%s/%s.pdf", output, gsub("/", "_", sampleName))
 	do.call(dev.fun, args=dev.args)
-	plot.fusions(sampleName=sampleName, forward=forward, reverse=reverse, forwardFile=forwardFile, reverseFile=reverseFile, identified=idn, design=design)
+	fusions.plot(sampleName=sampleName, forward=forward, reverse=reverse, forwardFile=forwardFile, reverseFile=reverseFile, identified=idn, design=design)
 	if(isTRUE(dev.close)) dev.off()
 	
 	message("Done")

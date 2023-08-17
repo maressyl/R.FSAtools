@@ -1,5 +1,5 @@
 # Plot Sanger sequences along fusion product alignments
-plot.fusions <- function(sampleName, forward, reverse, forwardFile, reverseFile, identified, design, pal=NULL) {
+fusions.plot <- function(sampleName, forward, reverse, forwardFile, reverseFile, identified, design, pal=NULL) {
 	# Top length
 	n <- nrow(identified$top)
 	

@@ -3,6 +3,7 @@
 \section{Changes in version 2.0.5 (2023-08-17)}{
   \itemize{
     \item{generic.process() now normalizes the output path to avoid problems on Windows.}
+    \item{Internal functions renamed to avoid false positive detection as methods.}
   }
 }
 \section{Changes in version 2.0.4 (2022-10-10)}{

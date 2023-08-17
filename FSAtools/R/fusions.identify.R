@@ -1,5 +1,5 @@
 # Imports a .ab1 / .fsa file from Applied Biosystems, using the provided converter
-identify.fusions <- function(forward, reverse, design, top=5, extra=NULL) {
+fusions.identify <- function(forward, reverse, design, top=5, extra=NULL) {
 	# Check arguments
 	if(!is.data.frame(design)) stop("'design' must be a data.frame")
 	
