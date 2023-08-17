@@ -17,6 +17,9 @@ generic.process <- function(
 	if(!file.exists(design))                                       stop("Select an existing design file.")
 	if(output == "")                                               stop("Select an output file name.")
 	
+	# Clean up output
+	output <- normalizePath(output, mustWork=FALSE)
+	
 	# Design file used
 	message("Design file : ", normalizePath(design), " [", tools::md5sum(design), "]", sep="")
 	

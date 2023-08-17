@@ -1,5 +1,10 @@
 \name{FSAtools-news}
 \title{FSAtools package NEWS}
+\section{Changes in version 2.0.5 (2023-08-17)}{
+  \itemize{
+    \item{generic.process() now normalizes the output path to avoid problems on Windows.}
+  }
+}
 \section{Changes in version 2.0.4 (2022-10-10)}{
   \itemize{
     \item{align.fsa() now exports R-squared as attribute.}
