@@ -2,8 +2,8 @@
 fusions.process <- function(
 		input,
 		design,
+		output,
 		sheet = NA,
-		output = ".",
 		cores = NA,
 		...
 	) {

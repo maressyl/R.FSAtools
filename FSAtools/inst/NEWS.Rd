@@ -5,6 +5,7 @@
     \item{generic.process() now normalizes the output path to avoid problems on Windows.}
     \item{Internal functions renamed to avoid false positive detection as methods.}
     \item{Invisible return value added to methods without return.}
+    \item{fusion.process() has no longer an output default value, per CRAN policy.}
   }
 }
 \section{Changes in version 2.0.4 (2022-10-10)}{

@@ -7,7 +7,7 @@
   Automatically interpret gene fusions found by Sanger sequencing using the Ligation-Dependent PCR protocol. 
 }
 \usage{
-  fusions.process(input, design, sheet = NA, output = ".", cores = NA, ...)
+  fusions.process(input, design, output, sheet = NA, cores = NA, ...)
 }
 
 \arguments{
@@ -17,11 +17,11 @@
   \item{design}{
     Data.frame describing all possible fusions (see Details).
 }
-  \item{sheet}{
-    Single character value, the name and path of a CSV file describing the files to process. 3 columns are expected: \code{ID} which gives a simpler sample name to use in outputs, \code{way} which defines if sequencing was 'forward' or 'reverse', and \code{file} which gives the file name and path relative to the \code{input} argument.
-}
   \item{output}{
     Single character value, the path to a directory in which to produce output files (will be created if doesn't yet exists).
+}
+  \item{sheet}{
+    Single character value, the name and path of a CSV file describing the files to process. 3 columns are expected: \code{ID} which gives a simpler sample name to use in outputs, \code{way} which defines if sequencing was 'forward' or 'reverse', and \code{file} which gives the file name and path relative to the \code{input} argument.
 }
   \item{cores}{
     Single integer value, the amount of CPUs to use on the local machine to parallelize the computation. If \code{NA}, a guess will be made. If 1, computation will not use the \code{parallel} package at all but only loop over samples.
