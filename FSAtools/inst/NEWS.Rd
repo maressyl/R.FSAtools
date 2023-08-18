@@ -1,9 +1,10 @@
 \name{FSAtools-news}
 \title{FSAtools package NEWS}
-\section{Changes in version 2.0.5 (2023-08-17)}{
+\section{Changes in version 2.0.5 (2023-08-18)}{
   \itemize{
     \item{generic.process() now normalizes the output path to avoid problems on Windows.}
     \item{Internal functions renamed to avoid false positive detection as methods.}
+    \item{Invisible return value added to methods without return.}
   }
 }
 \section{Changes in version 2.0.4 (2022-10-10)}{

@@ -42,6 +42,10 @@
   New data will be appended below the content of the file with extra 'meta' columns, row names will be added only if the file was empty.
 }
 
+\value{
+  Invisibly returns \code{TRUE} on success.
+}
+
 \author{
   Sylvain Mareschal
 }

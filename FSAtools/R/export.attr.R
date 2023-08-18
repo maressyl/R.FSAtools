@@ -40,4 +40,6 @@ export.attr <- function(
 		}		
 		write.table(val, file=file, sep=sep, dec=dec, quote=quote, append=TRUE, row.names=row.names, col.names=col.names)
 	} else stop("Attribute to export must be a data.frame or atomic vector")
+	
+	invisible(TRUE)
 }

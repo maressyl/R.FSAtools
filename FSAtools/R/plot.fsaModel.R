@@ -35,5 +35,7 @@ plot.fsaModel <- function(
 	
 	# Legend
 	legend(x="topleft", lty="solid", col=x$groupColors, legend=x$groupNames, bty="n", lwd=lwd)
+	
+	invisible(TRUE)
 }
 

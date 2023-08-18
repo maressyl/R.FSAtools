@@ -234,5 +234,7 @@ plot.fsa <- function(
 	
 	# Title
 	title(main=title, adj=title.adj, line=title.line)
+	
+	invisible(TRUE)
 }
 

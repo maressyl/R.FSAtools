@@ -27,6 +27,10 @@
 }
 }
 
+\value{
+  Invisibly returns \code{TRUE} on success.
+}
+
 \author{
   Sylvain Mareschal
 }

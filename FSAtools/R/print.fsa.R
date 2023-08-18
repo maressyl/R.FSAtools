@@ -10,4 +10,6 @@ print.fsa <- function(x, ...) {
 	
 	if(is.null(attr(x, "ladderExact"))) cat("No time index to size model available\n")
 	else                                cat("Aligned on ", length(attr(x, "ladderExact")), " size markers (", paste(names(attr(x, "ladderExact")), collapse=", "), ")\n", sep="")
+	
+	invisible(TRUE)
 }

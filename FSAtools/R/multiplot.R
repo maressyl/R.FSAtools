@@ -19,5 +19,7 @@ multiplot <- function(
 		respect = respect
 	)
 	if(!is.na(cex)) par(cex=cex)
+	
+	invisible(TRUE)
 }
 
